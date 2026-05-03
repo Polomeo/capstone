@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
@@ -12,24 +9,21 @@ function App() {
     .then(res => res.json())
     .then(data => {
       setStudents(data.students);
-      // console.log(data.students);
     })
     .catch(error => console.error('Error.', error));
   }, []);
 
   return (
-    <>
       <div>
         <h1>Students list</h1>
         <ul>
           {students.map(student => (
             <li key={student.id}>
-              <strong>{student.enroll_year}</strong> - {student.last_name}, {student.first_name}
+              {student.enroll_year}- {student.last_name}
             </li>
           ))}
         </ul>
       </div>
-    </>
   )
 }
 
