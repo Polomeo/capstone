@@ -10,7 +10,10 @@ function App() {
   useEffect(() => {
     fetch('http://localhost:8000/api/students')
     .then(res => res.json())
-    .then(data => setStudents(data))
+    .then(data => {
+      setStudents(data.students);
+      // console.log(data.students);
+    })
     .catch(error => console.error('Error.', error));
   }, []);
 

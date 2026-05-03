@@ -8,8 +8,5 @@ from .models import Student
 def students(request):
     students = Student.objects.all().order_by('-last_name')
 
-    if len(students) == 0:
-        return JsonResponse({"no_students" : "There are no students registered."})
-    else:
-        return JsonResponse({"students" : [student.serialize() for student in students],})
+    return JsonResponse({"students" : [student.serialize() for student in students]})
     
