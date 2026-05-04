@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+// import './App.css'
 
 function App() {
   const [students, setStudents] = useState([]);
@@ -23,6 +23,7 @@ function App() {
             </li>
           ))}
         </ul>
+        <button type="button" class="btn btn-primary">Base class</button>
       </div>
   )
 }
