@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import StudentsTable from './components/StudentsTable';
 // import './App.css'
 
 function App() {
@@ -14,17 +15,9 @@ function App() {
   }, []);
 
   return (
-      <div>
-        <h1>Students list</h1>
-        <ul>
-          {students.map(student => (
-            <li key={student.id}>
-              {student.enroll_year}- {student.last_name}
-            </li>
-          ))}
-        </ul>
-        <button type="button" class="btn btn-primary">Base class</button>
-      </div>
+    <>
+      <StudentsTable studentsList={students} />
+    </>
   )
 }
 
