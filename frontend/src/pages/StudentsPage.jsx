@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import StudentsTable from "../components/StudentsTable"
 
 function StudentsPage(){
