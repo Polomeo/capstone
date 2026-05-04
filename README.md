@@ -10,7 +10,7 @@ I used Django for the backend with API routes, and handle the front-end with Rea
 - In the main folder, use ```pip install -r requirements.txt ``` to install Python dependencies
 - In the 'frontend' folder, use ```npm install``` to install React dependencies
 - Navigate to 'capstone' folder and run ```python manage.py runserver```
-- In other terminal, navigate to 'frontend' folder and run ```npm run dev```
+- In another terminal, navigate to 'frontend' folder and run ```npm run dev```
 - Visit ```http://localhost:5173/``` (where :5173 is the port used by Vite server)
 
 # Initial Setup
