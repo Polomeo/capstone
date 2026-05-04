@@ -3,7 +3,7 @@ import ExamsTable from "../components/ExamsTable"
 function ExamsPage(){
 
     return (
-        <div className="container">
+        <div className="container">         
             <ExamsTable />
         </div>
     )
