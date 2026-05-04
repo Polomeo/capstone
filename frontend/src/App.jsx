@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import StudentsTable from './components/StudentsTable';
-// import './App.css'
+import SearchBar from './components/SearchBar';
 
 function App() {
   const [students, setStudents] = useState([]);
@@ -16,7 +16,8 @@ function App() {
 
   return (
     <>
-      <StudentsTable studentsList={students} />
+      {/* <StudentsTable studentsList={students} /> */}
+      <SearchBar textPlaceholder={"Buscar estudiante"} />
     </>
   )
 }
