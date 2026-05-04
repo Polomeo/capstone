@@ -48,3 +48,8 @@ The folder structure at this point is:
 
 ## Testing
 - Created a simple list of students in App.jsx that consumes 127.0.0.1:8000/api/students
+
+# To set-up this base:
+- Install requirements.txt
+- Install react dependencies
+- Check the CORS_ALLOWED_ORIGINS for React server port
