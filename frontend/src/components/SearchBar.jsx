@@ -5,11 +5,11 @@ function SearchBar({textPlaceholder}){
 
     return (
         <form>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">⌕</span>
+            <div className="input-group mb-3">
+                <span className="input-group-text" id="basic-addon1">⌕</span>
                 <input 
                     type="text" 
-                    class="form-control" 
+                    className="form-control" 
                     placeholder={textPlaceholder} 
                     aria-label={textPlaceholder} 
                     aria-describedby="basic-addon1" 
