@@ -10,6 +10,18 @@ function ExamsTable(){
         {"id" : 4, "subject_year" : 2, "subject" : "CHARMS", "date" : "07/03/2026", "book" : 3, "page": 64, "total_examined" : 20},
     ]
 
+    function yearBackground(subject_year) {
+        if (subject_year === 1){
+            return "danger";
+        }
+        else if (subject_year === 2){
+            return "warning";
+        }
+        else {
+            return "success";
+        }
+    }
+
     return (
         <div className="exams-table">
             <form className="exams-search-bar">
@@ -43,8 +55,8 @@ function ExamsTable(){
                         {exams.map((exam) => 
                             (exam.subject.toLowerCase().includes(searchQuery.toLowerCase())
                             ) &&
-                            (<tr key={exam.id} value={exam.id}>
-                                <th scope="row">{exam.subject_year}</th>
+                            (<tr key={exam.id} value={exam.id} className={"table-" + yearBackground(exam.subject_year)}>
+                                <th scope="row">{exam.subject_year}°</th>
                                 <td>{exam.subject}</td>
                                 <td>{exam.date}</td>
                                 <td>{exam.book}</td>
