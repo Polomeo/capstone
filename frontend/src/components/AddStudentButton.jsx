@@ -1,7 +1,7 @@
 function AddStudentButton(){
 
     return(
-        <button type="button" class="btn btn-info">
+        <button type="button" className="btn btn-info">
             Add Student
         </button>
     )

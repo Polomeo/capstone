@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 function NavBar() {
+
+    const location = useLocation();
+
     return (
         <nav className='navbar sticky-top navbar-expand-lg bg-body-tertiary'>
             <div className="container-fluid">
@@ -10,10 +13,10 @@ function NavBar() {
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link to='/' className="nav-link active">Students</Link>
+                            <Link to='/' className={"nav-link" + ((location.pathname == '/') ? " active" : "")}>Students</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to='/exams' className="nav-link">Exams</Link>
+                            <Link to='/exams' className={"nav-link" + ((location.pathname == '/exams') ? " active" : "")}>Exams</Link>
                         </li>
                     </ul>
                 </div>
