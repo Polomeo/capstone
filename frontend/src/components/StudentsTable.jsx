@@ -1,21 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+import { SearchContext } from "../pages/StudentsPage";
 
 function StudentsTable() {
      const [students, setStudents] = useState([]);
-     const [searchQuery, setSearchQuery] = useState("");
+     const [searchQuery, setSearchQuery] = useContext(SearchContext);
     
-      useEffect(() => {
-        fetch('http://localhost:8000/api/students')
-        .then(res => res.json())
-        .then(data => {
-          setStudents(data.students);
-        })
-        .catch(error => console.error('Error.', error));
-      }, []);
+    // Fetching the students
+    useEffect(() => {
+    fetch('http://localhost:8000/api/students')
+    .then(res => res.json())
+    .then(data => {
+        setStudents(data.students);
+    })
+    .catch(error => console.error('Error.', error));
+    }, []); // The empty list makes it to call only on mount
     
     return (
         <div className="students-table">
-            <form className="students-search-bar">
+            {/* <form className="students-search-bar">
                 <div className="input-group mb-3">
                     <span className="input-group-text" id="basic-addon1">⌕</span>
                     <input 
@@ -27,7 +30,7 @@ function StudentsTable() {
                         onChange={(e) => setSearchQuery(e.target.value)}    
                     />
                 </div>
-            </form>      
+            </form>       */}
             <div className="table-responsive">
                 <table className="table table-hover align-middle">
                     <thead>
