@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { SearchContext } from "../pages/StudentsPage";
 
 function StudentsSearchBar() {

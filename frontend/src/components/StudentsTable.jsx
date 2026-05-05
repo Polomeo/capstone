@@ -18,19 +18,6 @@ function StudentsTable() {
     
     return (
         <div className="students-table">
-            {/* <form className="students-search-bar">
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="basic-addon1">⌕</span>
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        placeholder="Search student..." 
-                        aria-label="Search student input" 
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}    
-                    />
-                </div>
-            </form>       */}
             <div className="table-responsive">
                 <table className="table table-hover align-middle">
                     <thead>
