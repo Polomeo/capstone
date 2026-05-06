@@ -7,11 +7,12 @@ import AddStudentForm from "../components/AddStudentForm";
 
 // Context for search
 export const SearchContext = createContext();
-
+export const IsAddingStudentContext = createContext();
 
 function StudentsPage(){
 
     const [searchQuery, setSearchQuery] = useState("");
+    const [isAddingStudent, setIsAddingStudent] = useState(true);
 
     return (
         <div className="container">
@@ -20,13 +21,15 @@ function StudentsPage(){
                     <div className="col-md-10">
                         <StudentsSearchBar />
                     </div>
-                    <div className="col-md-2">
-                        <AddStudentButton />
-                    </div>
-                    <div className="col-md-12">
-                        <AddStudentForm />
-                        <StudentsTable />
-                    </div>
+                    <IsAddingStudentContext.Provider value={[isAddingStudent, setIsAddingStudent]}>
+                        <div className="col-md-2">
+                            {(!isAddingStudent) && <AddStudentButton />}
+                        </div>
+                        <div className="col-md-12">
+                            {(isAddingStudent) && <AddStudentForm />}
+                            <StudentsTable />
+                        </div>
+                    </IsAddingStudentContext.Provider>
                 </div>
             </SearchContext.Provider>
         </div>

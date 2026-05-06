@@ -1,7 +1,16 @@
+import { useContext } from "react"
+import { IsAddingStudentContext } from "../pages/StudentsPage"
 
 function AddStudentForm() {
+    
+    const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
+    
+    function handleCancelButton() {
+        setIsAddingStudent(!isAddingStudent);
+    }
+    
     return (
-        <form>
+        <form className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>
@@ -27,7 +36,11 @@ function AddStudentForm() {
             <div className="row" style={{padding: "10px"}}>
                 <div className="form-group col-md-2">
                     <button type="submit" className="btn btn-primary">Enroll</button>
-                    <button className="btn btn-danger" style={{marginLeft: "10px"}}>Cancel</button>
+                    <button 
+                        className="btn btn-danger" 
+                        style={{marginLeft: "10px"}}
+                        onClick={handleCancelButton}
+                        >Cancel</button>
                 </div>
             </div>
         </form>
