@@ -2,7 +2,7 @@ function AddStudentButton(){
 
     return(
         <button type="button" className="btn btn-info">
-            Add Student
+            + Add Student
         </button>
     )
 }
