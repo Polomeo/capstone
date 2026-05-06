@@ -8,7 +8,7 @@ class Student(models.Model):
     last_name = models.CharField()
     personal_id_number = models.CharField() # CharField since it won't be used to math
     enroll_year = models.IntegerField()
-    enroll_id = models.IntegerField()
+    enroll_id = models.IntegerField() # Legajo (File number)
 
     def serialize(self):
         return {

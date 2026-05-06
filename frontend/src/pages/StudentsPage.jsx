@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 import StudentsTable from "../components/StudentsTable";
 import AddStudentButton from "../components/AddStudentButton";
 import StudentsSearchBar from "../components/StudentsSearchBar";
+import AddStudentForm from "../components/AddStudentForm";
 
 // Context for search
 export const SearchContext = createContext();
@@ -23,6 +24,7 @@ function StudentsPage(){
                         <AddStudentButton />
                     </div>
                     <div className="col-md-12">
+                        <AddStudentForm />
                         <StudentsTable />
                     </div>
                 </div>
