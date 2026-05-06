@@ -5,7 +5,7 @@ function NavBar() {
     const location = useLocation();
 
     return (
-        <nav className='navbar sticky-top navbar-expand-lg bg-body-tertiary'>
+        <nav className='navbar navbar-expand bg-body-tertiary'>
             <div className="container-fluid">
                 <div className='navbar-brand'>
                     <Link to='/'>School Manager</Link>
