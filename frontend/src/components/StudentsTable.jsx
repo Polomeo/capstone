@@ -8,12 +8,13 @@ function StudentsTable() {
     
     // Fetching the students
     useEffect(() => {
-    fetch('http://localhost:8000/api/students')
-    .then(res => res.json())
-    .then(data => {
-        setStudents(data.students);
-    })
-    .catch(error => console.error('Error.', error));
+        fetch('http://localhost:8000/api/students')
+        .then(res => res.json())
+        .then(data => {
+            setStudents(data.students);
+            console.log("DEBUG: Students Table Refreshed");
+        })
+        .catch(error => console.error('Error.', error));
     }, []); // The empty list makes it to call only on mount
     
     return (

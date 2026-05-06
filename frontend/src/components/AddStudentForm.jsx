@@ -5,7 +5,8 @@ function AddStudentForm() {
     
     const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
     
-    function handleCancelButton() {
+    function handleCancelButton(e) {
+        e.preventDefault();
         setIsAddingStudent(!isAddingStudent);
     }
     
@@ -39,7 +40,7 @@ function AddStudentForm() {
                     <button 
                         className="btn btn-danger" 
                         style={{marginLeft: "10px"}}
-                        onClick={handleCancelButton}
+                        onClick={(e) => handleCancelButton(e)}
                         >Cancel</button>
                 </div>
             </div>

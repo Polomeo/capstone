@@ -3,7 +3,8 @@ import { IsAddingStudentContext } from "../pages/StudentsPage"
 
 function AddStudentButton(){
 
-    function handleAddButton(){
+    function handleAddButton(e){
+        e.preventDefault();
         setIsAddingStudent(!isAddingStudent);
     }
 
@@ -13,7 +14,7 @@ function AddStudentButton(){
         <button 
             type="button" 
             className="btn btn-info"
-            onClick={handleAddButton}>
+            onClick={(e) => handleAddButton(e)}>
             + Add Student
         </button>
     )

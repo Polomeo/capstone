@@ -12,7 +12,7 @@ export const IsAddingStudentContext = createContext();
 function StudentsPage(){
 
     const [searchQuery, setSearchQuery] = useState("");
-    const [isAddingStudent, setIsAddingStudent] = useState(true);
+    const [isAddingStudent, setIsAddingStudent] = useState(false);
 
     return (
         <div className="container">
