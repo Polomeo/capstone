@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 
 import { SearchContext } from "../pages/StudentsPage";
+import { StudentsContext } from "../contexts/StudentsContextProvider";
 
 function StudentsTable() {
-     const [students, setStudents] = useState([]);
+     const [students, setStudents] = useContext(StudentsContext);
      const [searchQuery, setSearchQuery] = useContext(SearchContext);
     
     // Fetching the students
