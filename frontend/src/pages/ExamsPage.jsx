@@ -1,18 +1,14 @@
-import { createContext, useState } from "react";
-
 import ExamsTable from "../components/ExamsTable";
 import ExamsSearchBar from "../components/ExamsSearchBar";
 import AddExamButton from "../components/AddExamButton";
 
-export const SearchExamContext = createContext();
+import SearchExamContextProvider from "../contexts/SearchExamContextProvider";
 
 function ExamsPage(){
 
-    const [searchExamQuery, setSearchExamQuery] = useState("");
-
     return (
         <div className="container">
-            <SearchExamContext.Provider value={[searchExamQuery, setSearchExamQuery]}>
+            <SearchExamContextProvider>
                 <div className="row g-3">
                     <div className="col-md-10">
                         <ExamsSearchBar />
@@ -24,7 +20,7 @@ function ExamsPage(){
                         <ExamsTable />
                     </div>
                 </div>
-            </SearchExamContext.Provider>
+            </SearchExamContextProvider>
         </div>
     )
 }

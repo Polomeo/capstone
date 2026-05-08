@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SearchExamContext } from "../pages/ExamsPage";
+import { SearchExamContext } from "../contexts/SearchExamContextProvider";
 
 function ExamsSearchBar() {
 

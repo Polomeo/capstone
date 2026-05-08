@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-import { SearchExamContext } from "../pages/ExamsPage";
+import { SearchExamContext } from "../contexts/SearchExamContextProvider";
 
 function ExamsTable(){
     const [searchExamQuery, setSearchExamQuery] = useContext(SearchExamContext);
