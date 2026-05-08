@@ -5,24 +5,34 @@ function AddStudentForm() {
     
     const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
     
-    function handleCancelButton(e) {
-        e.preventDefault();
+    function handleCancelButton(event) {
+        event.preventDefault();
         setIsAddingStudent(!isAddingStudent);
     }
     
-    function handleEnroll(formData) {
-        // e.preventDefault();
+    function handleEnroll(event) {
+        event.preventDefault();
         
-        const sanitizedData = validateNewStudentData(formData)
+        // We create the a FromData object here 
+        // instead of using "action" on form
+        // to allow ourselfs to use event.
+        const formData = new FormData(event.currentTarget);
 
-        if(sanitizedData.error){
-            alert("Error: " + sanitizedData.error);
-        }
-        else{
-            alert("Success:");
-        }
+        // const sanitizedData = validateNewStudentData(formData)
+
+        // if(sanitizedData.error){
+        //     alert("Error: " + sanitizedData.error);
+        // }
+        // else{
+        //     alert("Success:");
+        // }
+
+        // Validation now occurs in server side
+
+
     }
 
+    // DEPRECATED -> DELETE (Validation occurs in server side)
     function validateNewStudentData(formData) {
         
         let sanitizedData = {}
@@ -71,7 +81,7 @@ function AddStudentForm() {
     }
 
     return (
-        <form action={handleEnroll} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
+        <form onClick={handleEnroll} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>
