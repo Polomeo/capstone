@@ -13,23 +13,41 @@ def students(request):
 
 @csrf_exempt
 def add_student(request):
+
+    # Constants
+    MIN_CHAR : int = 2
+    MAX_CHAR : int = 30
+
     if request.method != 'POST':
         return JsonResponse({"error" : "POST request required."})
     
     # Create Student and save
     data = json.loads(request.body)
 
-    student_data = data.get("studentData")
+    student = data.get("studentData")
+    errors = {}
 
-    new_student = Student(
-        first_name = student_data.firstName,
-        last_name = student_data.lastName,
-        personal_id_number = student_data.personalIdNumber,
-        enroll_year = student_data.enrollYear,
-        enroll_id = student_data.enrollId,
-    )
+    # Validate the data sent by frontend
+    if len(student.firstName) < MIN_CHAR or len(student.firstName) > MAX_CHAR:
+        errors["errFirstName"] = f"First name must be betweeen {MIN_CHAR} and {MAX_CHAR} characters."
 
-    new_student.save()
+    ## TO COMPLETE WITH REST OF THE FIELTS
 
-    return JsonResponse({"message" : "Student created succesfully"}, status=201)
+
+    # Check if errors, else create student and return success
+    if len(errors) > 0:
+        return JsonResponse({"errors" : errors}, status = 406) # Not Acceptable
+
+    else:
+        new_student = Student(
+            first_name = student.firstName,
+            last_name = student.lastName,
+            personal_id_number = student.personalIdNumber,
+            enroll_year = student.enrollYear,
+            enroll_id = student.enrollId,
+        )
+
+        new_student.save()
+
+        return JsonResponse({"success" : "Student created succesfully"}, status=201) # Created
     

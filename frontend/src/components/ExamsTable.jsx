@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-
 import { SearchExamContext } from "../contexts/SearchExamContextProvider";
 
 function ExamsTable(){
