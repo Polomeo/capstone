@@ -13,10 +13,10 @@ function StudentsTable() {
         .then(res => res.json())
         .then(data => {
             setStudents(data.students);
-            console.log("DEBUG: Students Table Refreshed");
+            // console.log("DEBUG: Students Table Refreshed");
         })
         .catch(error => console.error('Error.', error));
-    }, []); // The empty list makes it to call only on mount
+    }, []); // Updates only on mount
     
     return (
         <div className="students-table">

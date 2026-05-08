@@ -1,15 +1,18 @@
 import { createContext, useContext, useState } from "react";
 
+// Components
 import StudentsTable from "../components/StudentsTable";
 import AddStudentButton from "../components/AddStudentButton";
 import StudentsSearchBar from "../components/StudentsSearchBar";
 import AddStudentForm from "../components/AddStudentForm";
 
+// Contexts
 import StudentsContextProvider from "../contexts/StudentsContextProvider";
 
-// Context for search
+// TO EXPORT SEARCH CONTEXT (the IsAddingStudents works only here, so not necesary to export)
 export const SearchContext = createContext();
 export const IsAddingStudentContext = createContext();
+
 
 function StudentsPage(){
 
