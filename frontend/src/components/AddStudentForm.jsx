@@ -17,17 +17,9 @@ function AddStudentForm() {
         // instead of using "action" on form
         // to allow ourselfs to use event.
         const formData = new FormData(event.currentTarget);
+        console.log("Student data - Last name: " + formData.get("last_name"));
+        console.log("Student data - DNI: " + formData.get("personal_id_number"));
 
-        // const sanitizedData = validateNewStudentData(formData)
-
-        // if(sanitizedData.error){
-        //     alert("Error: " + sanitizedData.error);
-        // }
-        // else{
-        //     alert("Success:");
-        // }
-
-        // Validation now occurs in server side
 
 
     }
@@ -81,7 +73,7 @@ function AddStudentForm() {
     }
 
     return (
-        <form onClick={handleEnroll} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
+        <form onSubmit={(e) => handleEnroll(e)} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>
@@ -93,7 +85,7 @@ function AddStudentForm() {
                 </div>
                 <div className="form-group col-md-2">
                     <label>Personal ID Number</label>
-                    <input name="personal_id_number" type="number" className="form-control" placeholder="11.222.333" />
+                    <input name="personal_id_number" type="number" className="form-control" placeholder="11222333" />
                 </div>
                 <div className="form-group col-md-2">
                     <label>Enroll Year</label>
@@ -109,6 +101,7 @@ function AddStudentForm() {
                     <button 
                         type="submit" 
                         className="btn btn-primary"
+                        // onClick={(e) => handleEnroll(e)}
                         >Enroll</button>
                     <button 
                         className="btn btn-danger" 
