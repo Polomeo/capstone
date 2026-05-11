@@ -24,14 +24,20 @@ def add_student(request):
     # Create Student and save
     data = json.loads(request.body)
 
-    student = data.get("studentData")
+    # Student data
+    last_name = data.get("lastName")
+    first_name = data.get("firstName")
+    personal_id_number = data.get("personalIdNumber")
+    enroll_year = data.get("enrollYear")
+    enroll_id = data.get("enrollId")
+    
     errors = {}
 
     # Validate the data sent by frontend
-    if len(student.firstName) < MIN_CHAR or len(student.firstName) > MAX_CHAR:
-        errors["errFirstName"] = f"First name must be betweeen {MIN_CHAR} and {MAX_CHAR} characters."
+    if len(last_name) < MIN_CHAR or len(last_name) > MAX_CHAR:
+        errors["errLastName"] = f"Last name must be betweeen {MIN_CHAR} and {MAX_CHAR} characters."
 
-    ## TO COMPLETE WITH REST OF THE FIELTS
+    ## TO COMPLETE WITH REST OF THE FIELDS
 
 
     # Check if errors, else create student and return success
@@ -40,11 +46,11 @@ def add_student(request):
 
     else:
         new_student = Student(
-            first_name = student.firstName,
-            last_name = student.lastName,
-            personal_id_number = student.personalIdNumber,
-            enroll_year = student.enrollYear,
-            enroll_id = student.enrollId,
+            first_name = first_name,
+            last_name = last_name,
+            personal_id_number = personal_id_number,
+            enroll_year = enroll_year,
+            enroll_id = enroll_id,
         )
 
         new_student.save()

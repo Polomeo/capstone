@@ -13,15 +13,30 @@ function AddStudentForm() {
     function handleEnroll(event) {
         event.preventDefault();
         
-        // We create the a FromData object here 
-        // instead of using "action" on form
-        // to allow ourselfs to use event.
+        // Get the Form Data
         const formData = new FormData(event.currentTarget);
-        console.log("Student data - Last name: " + formData.get("last_name"));
-        console.log("Student data - DNI: " + formData.get("personal_id_number"));
 
-
-
+        // Call the API and send the student
+        fetch(`http://localhost:8000/api/add_student`, {
+            method: 'POST',
+            body: JSON.stringify({
+                lastName : formData.get("last_name"),
+                firstName : formData.get("first_name"),
+                personalIdNumber : formData.get("personal_id_number"),
+                enrollYear : formData.get("enroll_year"),
+                enrollId : formData.get("enroll_id"),
+            })
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.errors){
+                console.log(response.errors)
+            }
+            else if (response.success){
+                console.log("Student added.")
+            }
+        })
+        .catch(error => console.error('Error: ', error))
     }
 
     // DEPRECATED -> DELETE (Validation occurs in server side)
