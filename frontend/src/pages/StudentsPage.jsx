@@ -33,7 +33,7 @@ function StudentsPage(){
                             </div>
                             <div className="col-md-12">
                                 {(isAddingStudent) && <AddStudentForm />}
-                                <StudentsTable />
+                                {(!isAddingStudent) && <StudentsTable />}
                             </div>
                         </IsAddingStudentContext.Provider>
                     </div>

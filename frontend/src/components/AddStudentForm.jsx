@@ -30,63 +30,20 @@ function AddStudentForm() {
         .then(res => res.json())
         .then(response => {
             if(response.errors){
+                // Show them in the form
                 console.log(response.errors)
             }
             else if (response.success){
-                console.log("Student added.")
+                console.log("Student added.");
+                
+                // Hide the form and reload List
+                setIsAddingStudent(false);
             }
         })
         .catch(error => console.error('Error: ', error))
     }
 
-    // DEPRECATED -> DELETE (Validation occurs in server side)
-    function validateNewStudentData(formData) {
-        
-        let sanitizedData = {}
-        
-        const lastName = formData.get("last_name");
-        const firstName = formData.get("first_name");
-        const personalIdNumber = parseInt(formData.get("personal_id_number"));
-        const enrollYear = parseInt(formData.get("enroll_year"));
-        const enrollId = parseInt(formData.get("enroll_id"));
-
-        // Sanitize Last name
-        if(lastName.length > 30 || lastName.length < 2)
-            {
-            sanitizedData["error"] = "Last name must be between 2 and 30 characters."
-        } else {
-            sanitizedData["lastName"] = lastName
-        }
-
-        // Sanitize Fist name
-        if(firstName.length > 30 || firstName.length < 2) {
-            sanitizedData["error"] = "First name must be between 2 and 30 characters."
-        } else {
-            sanitizedData["firstName"] = firstName
-        }
-
-        // Sanitize personal id number
-        if(personalIdNumber < 1000000
-            || personalIdNumber > 99999999) {
-            sanitizedData["error"] = "Personal ID number must be between 1.000.000 and 99.999.999";
-        }
-        else {
-            sanitizedData["personalIdNumber"] = personalIdNumber;
-        }
-
-        // Sanitize enroll year
-        if(enrollYear < 2020 || enrollYear > 2026){
-            sanitizedData["error"] = "Enroll Year must be between 2020 and 2026"
-        } else {
-            sanitizedData["enrollYear"] = enrollYear;
-        }
-
-        // Enroll id number could stay blank
-        sanitizedData["enrollId"] = enrollId
-
-        return sanitizedData
-    }
-
+  
     return (
         <form onSubmit={(e) => handleEnroll(e)} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
             <div className="row">
