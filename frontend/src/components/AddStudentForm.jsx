@@ -1,9 +1,11 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { IsAddingStudentContext } from "../pages/StudentsPage"
+import ErrorsList from "./ErrorsList";
 
 function AddStudentForm() {
     
     const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
+    const [errors, setErrors] = useState([]);
     
     function handleCancelButton(event) {
         event.preventDefault();
@@ -32,6 +34,19 @@ function AddStudentForm() {
             if(response.errors){
                 // Show them in the form
                 console.log(response.errors)
+                
+                let errorsResponse = []
+                // response.errors.forEach(error => {
+                //     errors.push(error);
+                //     }
+                // )
+                for (const errorCode in response.errors) {
+                    errorsResponse.push(response.errors[errorCode]);
+                    // console.log(response.errors[errorCode]);
+                    // console.log(errorsResponse);
+                }
+
+                setErrors(errorsResponse);
             }
             else if (response.success){
                 console.log("Student added.");
@@ -68,6 +83,11 @@ function AddStudentForm() {
                     <input name="enroll_id" type="number" className="form-control" placeholder="123" />
                 </div>
             </div>
+                <div className="row">
+                    <div className="form-group col-md-6">
+                        { errors.length > 0 && ( <ErrorsList errorsList={errors} /> )}
+                    </div>
+                </div>
             <div className="row" style={{padding: "10px"}}>
                 <div className="form-group col-md-2">
                     <button 
