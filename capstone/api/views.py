@@ -52,25 +52,26 @@ def add_student(request):
     
     # VALIDATION -> Numbers
     try:
+        # Try converting the input data to INT
         personal_id_number = int(personal_id_number)
         enroll_year = int(enroll_year)
         enroll_id = int(enroll_id)
 
-        if not isinstance(personal_id_number, int) or (personal_id_number < MIN_PID or personal_id_number > MAX_PID):
+        # VALIDATION -> Personal ID Number
+        if personal_id_number < MIN_PID or personal_id_number > MAX_PID:
             errors["errPID"] = f"Personal ID Number must be a number between {MIN_PID} and {MAX_PID}."
     
         # VALIDATION -> Enroll Year
-        if not isinstance(enroll_year, int) or (enroll_year < MIN_ENROLL_YEAR or enroll_year > MAX_ENROLL_YEAR):
+        if enroll_year < MIN_ENROLL_YEAR or enroll_year > MAX_ENROLL_YEAR:
             errors["errEnrollYear"] = f"Enroll year must be between {MIN_ENROLL_YEAR} and {MAX_ENROLL_YEAR}."
         
         # VALIDATION -> Enroll ID
-        if not isinstance(enroll_id, int) or enroll_id <= 0:
+        if enroll_id <= 0:
             errors["errEnrollId"] = f"Eroll ID number cannot be blank or negative."
 
     except ValueError:
         errors["errInvalidNumber"] = f'Personal ID number, Enroll Year and Enroll ID must be integer numbers.'
 
-    
 
 #endregion
 
