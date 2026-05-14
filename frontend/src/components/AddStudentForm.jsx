@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { cache, useContext, useState } from "react"
 import { IsAddingStudentContext } from "../pages/StudentsPage"
 import ErrorsList from "./ErrorsList";
 
@@ -27,26 +27,24 @@ function AddStudentForm() {
                 personalIdNumber : formData.get("personal_id_number"),
                 enrollYear : formData.get("enroll_year"),
                 enrollId : formData.get("enroll_id"),
-            })
+            }),
+            cache: 'reload',
         })
         .then(res => res.json())
         .then(response => {
             if(response.errors){
-                // Show them in the form
-                console.log(response.errors)
                 
+                // Add them to the error state
                 let errorsResponse = []
-                // response.errors.forEach(error => {
-                //     errors.push(error);
-                //     }
-                // )
+
                 for (const errorCode in response.errors) {
                     errorsResponse.push(response.errors[errorCode]);
-                    // console.log(response.errors[errorCode]);
-                    // console.log(errorsResponse);
                 }
 
+                // Clean and add the recent errors
+                // setErrors([]);
                 setErrors(errorsResponse);
+                console.log("Errors: " + errors);
             }
             else if (response.success){
                 console.log("Student added.");
