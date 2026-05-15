@@ -75,7 +75,6 @@ def add_student(request):
 
 #endregion
 
-
     # Check if errors, else create student and return success
     if len(errors) > 0:
         return JsonResponse({"errors" : errors}, status = 406) # Not Acceptable
