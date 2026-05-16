@@ -83,4 +83,4 @@ class Grade(models.Model):
     
     def __str__(self):
         final_grade  = "Absent" if self.absent else self.grading
-        return f"{self.exam.subject.name_short} | {self.student.last_name} | {final_grade}"
+        return f"{self.exam.subject.name_short} | {self.student.last_name}, {self.student.first_name} | {final_grade}"
