@@ -55,17 +55,16 @@ class Exam(models.Model):
         }
     
     def __str__(self):
-        return f"{self.date.strftime("%Y-%m-%d")}"
+        return f"{self.date.strftime("%Y-%m-%d")} - {self.subject.name_short}"
     
-
 class Grade(models.Model):
-    student = models.ForeignKey(Student,
-                                on_delete=models.CASCADE,
-                                related_name='grades')
     exam = models.ForeignKey(Exam,
                              on_delete=models.CASCADE,
                              related_name='grades')
-    grading = models.IntegerField(blank=True)
+    student = models.ForeignKey(Student,
+                                on_delete=models.CASCADE,
+                                related_name='grades')
+    grading = models.IntegerField(blank=True, null=True)
     absent = models.BooleanField(default=False)
 
     def serialize(self):
