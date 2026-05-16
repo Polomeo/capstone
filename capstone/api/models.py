@@ -36,7 +36,7 @@ class Subject(models.Model):
             'course' : self.course
         }
     
-    def __set__(self):
+    def __str__(self):
         return f'{self.course}° | {self.name_short}'
     
 class Exam(models.Model):
@@ -54,7 +54,7 @@ class Exam(models.Model):
             'date' : self.date.strftime("%Y-%m-%d")
         }
     
-    def __set__(self):
+    def __str__(self):
         return f"{self.date.strftime("%Y-%m-%d")}"
     
 
