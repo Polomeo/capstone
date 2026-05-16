@@ -51,7 +51,9 @@ class Exam(models.Model):
             'id' : self.id,
             'subject_full' : self.subject.name_short,
             'subject_short' : self.subject.name_short,
-            'date' : self.date.strftime("%Y-%m-%d")
+            'subject_course' : self.subject.course,
+            'date' : self.date.strftime("%Y-%m-%d"),
+            'filled' : self.filled
         }
     
     def __str__(self):

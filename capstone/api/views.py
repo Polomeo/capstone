@@ -4,9 +4,9 @@ from django.http import JsonResponse
 # from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Student
+from .models import Student, Exam
 
-# Create your views here.
+#region STUDENT VIEWS
 def students(request):
     students = Student.objects.all().order_by('last_name')
 
@@ -91,4 +91,12 @@ def add_student(request):
         new_student.save()
 
         return JsonResponse({"success" : "Student created succesfully"}, status=201) # Created
-    
+
+#endregion
+
+#region EXAMS VIEWS
+def exams(request):
+    exams = Exam.objects.all().order_by('-date')
+    return JsonResponse({"exams" : [exam.serialize() for exam in exams]})
+
+#endregion
