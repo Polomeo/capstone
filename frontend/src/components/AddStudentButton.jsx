@@ -2,13 +2,14 @@ import { useContext } from "react"
 import { IsAddingStudentContext } from "../pages/StudentsPage"
 
 function AddStudentButton(){
+    
+    const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
 
     function handleAddButton(e){
         e.preventDefault();
         setIsAddingStudent(!isAddingStudent);
     }
 
-    const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
 
     return(
         <button 

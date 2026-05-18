@@ -49,6 +49,7 @@ class Exam(models.Model):
     def serialize(self):
         return {
             'id' : self.id,
+            'subject_id' : self.subject.id,
             'subject_full' : self.subject.name_short,
             'subject_short' : self.subject.name_short,
             'subject_course' : self.subject.course,

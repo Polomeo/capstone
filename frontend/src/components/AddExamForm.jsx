@@ -11,56 +11,62 @@ function AddExamForm() {
     
     function handleCancelButton(event) {
         event.preventDefault();
-        setIsAddingStudent(!isAddingStudent);
+        setIsAddingExam(!setIsAddingExam);
     }
     
-    function handleEnroll(event) {
+    // TO UPDATE
+    function handleCreateExam(event) {
         event.preventDefault();
         
-        // Get the Form Data
-        const formData = new FormData(event.currentTarget);
+        // TESTING
+        alert('Exam loaded!');
+        setIsAddingExam(false);
+        
+        // // Get the Form Data
+        // const formData = new FormData(event.currentTarget);
 
-        // Call the API and send the student
-        fetch(`http://localhost:8000/api/add_student`, {
-            method: 'POST',
-            body: JSON.stringify({
-                lastName : formData.get("last_name"),
-                firstName : formData.get("first_name"),
-                personalIdNumber : formData.get("personal_id_number"),
-                enrollYear : formData.get("enroll_year"),
-                enrollId : formData.get("enroll_id"),
-            }),
-            cache: 'reload',
-        })
-        .then(res => res.json())
-        .then(response => {
-            if(response.errors){
+        // // Call the API and send the student
+        // fetch(`http://localhost:8000/api/add_exam`, {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         lastName : formData.get("last_name"),
+        //         firstName : formData.get("first_name"),
+        //         personalIdNumber : formData.get("personal_id_number"),
+        //         enrollYear : formData.get("enroll_year"),
+        //         enrollId : formData.get("enroll_id"),
+        //     }),
+        //     cache: 'reload',
+        // })
+        // .then(res => res.json())
+        // .then(response => {
+        //     if(response.errors){
                 
-                // Add them to the error state
-                let errorsResponse = []
+        //         // Add them to the error state
+        //         let errorsResponse = []
 
-                for (const errorCode in response.errors) {
-                    errorsResponse.push(response.errors[errorCode]);
-                }
+        //         for (const errorCode in response.errors) {
+        //             errorsResponse.push(response.errors[errorCode]);
+        //         }
 
-                // Clean and add the recent errors
-                // setErrors([]);
-                setErrors(errorsResponse);
-                console.log("Errors: " + errors);
-            }
-            else if (response.success){
-                console.log("Student added.");
+        //         // Clean and add the recent errors
+        //         // setErrors([]);
+        //         setErrors(errorsResponse);
+        //         console.log("Errors: " + errors);
+        //     }
+        //     else if (response.success){
+        //         console.log("Student added.");
                 
-                // Hide the form and reload List
-                setIsAddingStudent(false);
-            }
-        })
-        .catch(error => console.error('Error: ', error))
+        //         // Hide the form and reload List
+        //         setIsAddingStudent(false);
+        //     }
+        // })
+        // .catch(error => console.error('Error: ', error))
     }
 
   
     return (
-        <form onSubmit={(e) => handleEnroll(e)} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
+        // onSubmit={(e) => handleCreateExam(e)}
+        <form onSubmit={(e) => handleCreateExam(e)} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>
@@ -93,7 +99,7 @@ function AddExamForm() {
                     <button 
                         type="submit" 
                         className="btn btn-primary"
-                        // onClick={(e) => handleEnroll(e)}
+                        // Handled by "onSubmit" in form tag
                         >Enroll</button>
                     <button 
                         className="btn btn-danger" 
