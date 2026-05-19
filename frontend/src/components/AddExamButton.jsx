@@ -8,6 +8,7 @@ function AddExamButton(){
     function handleAddExamButton(e){
         e.preventDefault();
         setIsAddingExam(!isAddingExam);
+        console.log("IS ADDING EXAM");
     }
 
     return(
