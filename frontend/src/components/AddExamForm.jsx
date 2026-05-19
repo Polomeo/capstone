@@ -19,7 +19,7 @@ function AddExamForm() {
         event.preventDefault();
         
         // TESTING
-        alert('Exam loaded!');
+        // alert('Exam loaded!');
         setIsAddingExam(false);
         
         // // Get the Form Data
@@ -68,25 +68,26 @@ function AddExamForm() {
         // onSubmit={(e) => handleCreateExam(e)}
         <form onSubmit={(e) => handleCreateExam(e)} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
             <div className="row">
-                <div className="form-group col-md-3">
-                    <label>Last name</label>
-                    <input name="last_name" type="text" className="form-control" placeholder="Last name" autoFocus/>
+                <div className="form-group col-md-4">
+                    <label>Subject</label>
+                    <select 
+                        name="subject_select"
+                        className="form-select" 
+                        aria-label="Subject select dropdown">
+                        <option selected>Select the subject...</option>
+                        <option value="1">DADA I</option>
+                        <option value="2">DADA II</option>
+                        <option value="3">DIVINATION</option>
+                    </select>
                 </div>
                 <div className="form-group col-md-3">
-                    <label>First name</label>
-                    <input name="first_name" type="text" className="form-control" placeholder="First name" />
-                </div>
-                <div className="form-group col-md-2">
-                    <label>Personal ID Number</label>
-                    <input name="personal_id_number" type="number" className="form-control" placeholder="11222333" />
-                </div>
-                <div className="form-group col-md-2">
-                    <label>Enroll Year</label>
-                    <input name="enroll_year" type="number" className="form-control" placeholder="2026" />
-                </div>
-                <div className="form-group col-md-2">
-                    <label>Enroll ID Number</label>
-                    <input name="enroll_id" type="number" className="form-control" placeholder="123" />
+                    <label>Exam date</label>
+                    <input 
+                        name="exam_date" 
+                        type="date" 
+                        className="form-control" 
+                        min="2025-01-01"
+                        max="2026-05-19" />
                 </div>
             </div>
                 <div className="row">
@@ -100,12 +101,15 @@ function AddExamForm() {
                         type="submit" 
                         className="btn btn-primary"
                         // Handled by "onSubmit" in form tag
-                        >Enroll</button>
+                        >Create exam</button>
+                </div>
+                <div className="form-group col-md-2">
                     <button 
                         className="btn btn-danger" 
                         style={{marginLeft: "10px"}}
                         onClick={(e) => handleCancelButton(e)}
-                        >Cancel</button>
+                        >Cancel
+                    </button>
                 </div>
             </div>
         </form>
