@@ -4,7 +4,7 @@ from django.http import JsonResponse
 # from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Student, Exam
+from .models import Student, Subject, Exam
 
 #region STUDENT VIEWS
 def students(request):
@@ -98,5 +98,23 @@ def add_student(request):
 def exams(request):
     exams = Exam.objects.all().order_by('-date')
     return JsonResponse({"exams" : [exam.serialize() for exam in exams]})
+
+def create_exam_form_info(request):
+    # Const for validation
+    # MIN_EXAM_DATE
+    # MAX_EXAM_DATE
+
+    subjects = Subject.objects.all().order_by('course', 'name_short')
+
+    exams_info = {
+        "min_exam_date" : "2025-06-01",
+        "max_exam_date" : "2026-05-19",
+        "subjects" : [subject.serialize() for subject in subjects]
+    }
+
+    if (len(exams_info["subjects"]) == 0):
+        return JsonResponse({"no_subjects" : "There are no subjects to examinate."})
+    else:
+        return JsonResponse(exams_info)
 
 #endregion

@@ -8,5 +8,6 @@ urlpatterns = [
     path('add_student', views.add_student, name="add_student"),
     # Exams
     path('exams', views.exams, name="exams"),
+    path('create_exam_form_info', views.create_exam_form_info, name="create_exam_form_info"),
 
 ]

@@ -1,4 +1,4 @@
-import { cache, useContext, useState } from "react"
+import { cache, useContext, useEffect, useState } from "react"
 import ErrorsList from "./ErrorsList";
 
 // Contexts
@@ -7,7 +7,18 @@ import { IsAddingExamContext } from "../pages/ExamsPage";
 function AddExamForm() {
     
     const [isAddingExam, setIsAddingExam] = useContext(IsAddingExamContext);
+    const [examData, setExamData] = useState(null);
     const [errors, setErrors] = useState([]);
+    
+    // Load the form configuration
+    useEffect(() => {
+        fetch('http://localhost:8000/api/create_exam_form_info')
+        .then(res => res.json())
+        .then(data => {
+            setExamData(data);
+            console.log(data);
+        })
+    },[])
     
     function handleCancelButton(event) {
         event.preventDefault();
@@ -74,10 +85,10 @@ function AddExamForm() {
                         name="subject_select"
                         className="form-select" 
                         aria-label="Subject select dropdown">
-                        <option selected>Select the subject...</option>
-                        <option value="1">DADA I</option>
-                        <option value="2">DADA II</option>
-                        <option value="3">DIVINATION</option>
+                        <option value="0" selected>Select the subject...</option>
+                        {(examData !== null) && (examData.subjects.map((subject) => 
+                            <option key={subject.id} value={subject.id}>{subject.name_short}</option>
+                            ))}
                     </select>
                 </div>
                 <div className="form-group col-md-3">
@@ -86,8 +97,8 @@ function AddExamForm() {
                         name="exam_date" 
                         type="date" 
                         className="form-control" 
-                        min="2025-01-01"
-                        max="2026-05-19" />
+                        min={(examData !== null) && (examData.min_exam_date)}
+                        max={(examData !== null) && (examData.max_exam_date)} />
                 </div>
             </div>
                 <div className="row">
