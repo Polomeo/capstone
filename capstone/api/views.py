@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, date
 from django.http import JsonResponse
 # from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -101,14 +101,16 @@ def exams(request):
 
 def create_exam_form_info(request):
     # Const for validation
-    # MIN_EXAM_DATE
-    # MAX_EXAM_DATE
+    current_year = datetime.today().year
+
+    MIN_EXAM_DATE : str = f"{current_year - 6}-01-01"
+    MAX_EXAM_DATE : str = f"{current_year}-12-31"
 
     subjects = Subject.objects.all().order_by('course', 'name_short')
 
     exams_info = {
-        "min_exam_date" : "2025-06-01",
-        "max_exam_date" : "2026-05-19",
+        "min_exam_date" : MIN_EXAM_DATE,
+        "max_exam_date" : MAX_EXAM_DATE,
         "subjects" : [subject.serialize() for subject in subjects]
     }
 
@@ -116,5 +118,41 @@ def create_exam_form_info(request):
         return JsonResponse({"no_subjects" : "There are no subjects to examinate."})
     else:
         return JsonResponse(exams_info)
+
+@csrf_exempt
+def add_exam(request):
+    current_year = datetime.today().year
+
+    MIN_EXAM_DATE : str = f"{current_year - 6}-01-01"
+    MAX_EXAM_DATE : str = f"{current_year}-12-31"
+
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+    
+    # Get exam data
+    data = json.loads(request.body)
+
+    subject_id = data.get("subjectId")
+    exam_date = data.get("examDate")
+
+    # Posible errors
+    errors = {}
+
+    #region EXAM DATA VALIDATION
+    try:
+        subject_id = int(subject_id)
+        # exam_date = datetime.strptime(exam_date, "%Y-%m-%d").date()
+        exam_date = date.fromisoformat(exam_date) # YYYY-MM-DD
+
+    except ValueError:
+        errors["errSubjectId"] = "Subject ID must be an integer."
+        errors["errExamDate"] = "Invalid exam date."
+    
+    # CONTINUE HERE...
+
+
+    #endregion
+    
+    return
 
 #endregion

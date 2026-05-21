@@ -31,7 +31,17 @@ function AddExamForm() {
         
         // TESTING
         // alert('Exam loaded!');
+        
+        // Get the form data
+        const formData = new FormData(event.currentTarget);
+        const body = JSON.stringify({
+            subjectId : formData.get("subject_select"),
+            examDate : formData.get("exam_date"),
+        });
+        
+        console.log(body);
         setIsAddingExam(false);
+
         
         // // Get the Form Data
         // const formData = new FormData(event.currentTarget);
@@ -86,9 +96,9 @@ function AddExamForm() {
                         className="form-select" 
                         aria-label="Subject select dropdown">
                         <option value="0" selected>Select the subject...</option>
-                        {(examData !== null) && (examData.subjects.map((subject) => 
+                        {(examData !== null) ? (examData.subjects.map((subject) => 
                             <option key={subject.id} value={subject.id}>{subject.name_short}</option>
-                            ))}
+                            )) : undefined}
                     </select>
                 </div>
                 <div className="form-group col-md-3">
@@ -97,8 +107,8 @@ function AddExamForm() {
                         name="exam_date" 
                         type="date" 
                         className="form-control" 
-                        min={(examData !== null) && (examData.min_exam_date)}
-                        max={(examData !== null) && (examData.max_exam_date)} />
+                        min={(examData !== null) ? (examData.min_exam_date) : undefined}
+                        max={(examData !== null) ? (examData.max_exam_date) : undefined} />
                 </div>
             </div>
                 <div className="row">
