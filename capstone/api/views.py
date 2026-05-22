@@ -153,7 +153,7 @@ def add_exam(request):
         errors["errExamDate"] = f"Exam date must be between {MIN_EXAM_DATE} and {MAX_EXAM_DATE}"
     
     # Check if exam already exists
-    exam_already_exists : bool = (Exam.objects.get(subject__id=subject_id, date=exam_date)) > 0
+    exam_already_exists : bool = Exam.objects.filter(subject__id=subject_id, date=exam_date).exists()
     if exam_already_exists:
         errors["errExamAlreadyExists"] = "This exam already exists."
     

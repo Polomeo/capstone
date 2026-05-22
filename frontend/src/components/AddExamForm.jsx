@@ -29,56 +29,39 @@ function AddExamForm() {
     function handleCreateExam(event) {
         event.preventDefault();
 
-        // Get the form data
+        // Get the Form Data
         const formData = new FormData(event.currentTarget);
-        const body = {
-            subjectId : formData.get("subject_select"),
-            examDate : formData.get("exam_date"),
-        };
-        
-        console.log(body);
-        setIsAddingExam(false);
 
-        
-        // // Get the Form Data
-        // const formData = new FormData(event.currentTarget);
-
-        // // Call the API and send the student
-        // fetch(`http://localhost:8000/api/add_exam`, {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         lastName : formData.get("last_name"),
-        //         firstName : formData.get("first_name"),
-        //         personalIdNumber : formData.get("personal_id_number"),
-        //         enrollYear : formData.get("enroll_year"),
-        //         enrollId : formData.get("enroll_id"),
-        //     }),
-        //     cache: 'reload',
-        // })
-        // .then(res => res.json())
-        // .then(response => {
-        //     if(response.errors){
+        // Call the API and send the student
+        fetch(`http://localhost:8000/api/add_exam`, {
+            method: 'POST',
+            body: JSON.stringify({
+                subjectId : formData.get("subject_select"),
+                examDate : formData.get("exam_date"),
+            }),
+            cache: 'reload',
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.errors){
                 
-        //         // Add them to the error state
-        //         let errorsResponse = []
+                // Add them to the error state
+                let errorsResponse = []
 
-        //         for (const errorCode in response.errors) {
-        //             errorsResponse.push(response.errors[errorCode]);
-        //         }
+                for (const errorCode in response.errors) {
+                    errorsResponse.push(response.errors[errorCode]);
+                }
 
-        //         // Clean and add the recent errors
-        //         // setErrors([]);
-        //         setErrors(errorsResponse);
-        //         console.log("Errors: " + errors);
-        //     }
-        //     else if (response.success){
-        //         console.log("Student added.");
+                setErrors(errorsResponse);
+            }
+            else if (response.success){
+                console.log("Exam added.");
                 
-        //         // Hide the form and reload List
-        //         setIsAddingStudent(false);
-        //     }
-        // })
-        // .catch(error => console.error('Error: ', error))
+                // Hide the form and reload List
+                setIsAddingExam(false);
+            }
+        })
+        .catch(error => console.error('Error: ', error))
     }
 
   
