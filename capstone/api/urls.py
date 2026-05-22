@@ -9,5 +9,5 @@ urlpatterns = [
     # Exams
     path('exams', views.exams, name="exams"),
     path('create_exam_form_info', views.create_exam_form_info, name="create_exam_form_info"),
-
+    path('add_exam', views.add_exam, name="add_exam"),
 ]

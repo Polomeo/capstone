@@ -28,16 +28,13 @@ function AddExamForm() {
     // TO UPDATE
     function handleCreateExam(event) {
         event.preventDefault();
-        
-        // TESTING
-        // alert('Exam loaded!');
-        
+
         // Get the form data
         const formData = new FormData(event.currentTarget);
-        const body = JSON.stringify({
+        const body = {
             subjectId : formData.get("subject_select"),
             examDate : formData.get("exam_date"),
-        });
+        };
         
         console.log(body);
         setIsAddingExam(false);

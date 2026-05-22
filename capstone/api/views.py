@@ -148,11 +148,28 @@ def add_exam(request):
         errors["errSubjectId"] = "Subject ID must be an integer."
         errors["errExamDate"] = "Invalid exam date."
     
-    # CONTINUE HERE...
-
-
-    #endregion
+    # Check the date
+    if exam_date < date.fromisoformat(MIN_EXAM_DATE) or exam_date > date.fromisoformat(MAX_EXAM_DATE):
+        errors["errExamDate"] = f"Exam date must be between {MIN_EXAM_DATE} and {MAX_EXAM_DATE}"
     
-    return
+    # Check if exam already exists
+    exam_already_exists : bool = (Exam.objects.get(subject__id=subject_id, date=exam_date)) > 0
+    if exam_already_exists:
+        errors["errExamAlreadyExists"] = "This exam already exists."
+    
+    #endregion
+
+    if len(errors) > 0:
+        return JsonResponse({"errors" : errors}, status = 406) # Not Acceptable
+
+    else:
+        new_exam = Exam(
+            subject = Subject.objects.get(id=subject_id),
+            date = exam_date
+        )
+
+        new_exam.save()
+
+        return JsonResponse({"success" : "Exam created succesfully"}, status=201) # Created
 
 #endregion
