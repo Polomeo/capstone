@@ -1,8 +1,9 @@
-import { Routes, Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import NavBar from './components/NavBar'
 import ExamsPage from "./pages/ExamsPage"
 import StudentsPage from "./pages/StudentsPage"
+import GradingPage from './pages/GradingPage'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<StudentsPage />} />
           <Route path="/exams" element={<ExamsPage />} />
+          <Route path="/grading" element={<GradingPage />} />
         </Routes>
       </main>
     </div>
