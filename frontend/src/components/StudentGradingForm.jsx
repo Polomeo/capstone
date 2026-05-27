@@ -1,13 +1,14 @@
+import { useState } from "react";
+
 function StudentGradingForm({ StudentGradingData }){
     
-    function handleGradingChange(){
-        // Necesary for Input to work with initial value
-    }
+    const [isAbsent, setIsAbsent] = useState(StudentGradingData.absent);
+    const [grading, setGrading] = useState(StudentGradingData.exam_grading);
 
-    function handleAbsentChange(){
-        // ON TRUE: 
-        // Empty the Grading
-        // Lock the grading input
+    
+    const handleAbsentChange = (event) => {
+        setGrading("");
+        setIsAbsent(!isAbsent);
     }
     
     return (
@@ -16,13 +17,14 @@ function StudentGradingForm({ StudentGradingData }){
             <input type="number" 
                 name={ "grading_" + StudentGradingData.id } 
                 className="form-control"
-                defaultValue={ StudentGradingData.exam_grading ? StudentGradingData.exam_grading : "" }
-                // onChange={handleGradingChange}
+                value={ grading }
+                disabled={ isAbsent }
+                onChange={(e) => setGrading(e.target.value)}
                 />
             <input type="checkbox" 
                 name={"absent_" + StudentGradingData.id} 
                 className="form-check-input" 
-                checked={ !!StudentGradingData.absent }
+                checked={ isAbsent }
                 onChange={handleAbsentChange}
                 />
         </div>
