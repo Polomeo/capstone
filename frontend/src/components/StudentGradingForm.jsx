@@ -7,8 +7,16 @@ function StudentGradingForm({ StudentGradingData }){
 
     
     const handleAbsentChange = (event) => {
-        setGrading("");
-        setIsAbsent(!isAbsent);
+        // Blocks the Grading input
+        // and sets the checkbox
+        setIsAbsent(event.target.checked);
+        
+        if(event.target.checked) {
+            setGrading("");    
+        }
+        else {
+            setGrading(lastGrading);
+        }
     }
     
     return (
@@ -17,7 +25,7 @@ function StudentGradingForm({ StudentGradingData }){
             <input type="number" 
                 name={ "grading_" + StudentGradingData.id } 
                 className="form-control"
-                value={ grading }
+                value={ lastGrading }
                 disabled={ isAbsent }
                 onChange={(e) => setGrading(e.target.value)}
                 />
