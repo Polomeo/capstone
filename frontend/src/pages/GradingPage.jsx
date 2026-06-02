@@ -11,7 +11,7 @@ function GradingPage(){
     return(
         <div className="container">
             Hello from Grading Page
-            <form>
+            <form className="form-inline">
                 {testExamData.map((examData) => (
                     <StudentGradingForm StudentGradingData={examData} key={examData.id} />
                 ))}
