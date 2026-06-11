@@ -1,4 +1,6 @@
 import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { SearchExamContext } from "../contexts/SearchExamContextProvider";
 import { ExamsContext } from "../contexts/ExamsContextProvider";
 
@@ -47,13 +49,15 @@ function ExamsTable(){
                         {exams.map((exam) => 
                             (exam.subject_short.toLowerCase().includes(searchExamQuery.toLowerCase())
                             ) &&
-                            (<tr key={exam.id} value={exam.id} className={"table-" + yearBackground(exam.subject_course)}>
-                                <th scope="row">{exam.subject_course}°</th>
-                                <td>{exam.subject_short}</td>
-                                <td>{exam.date}</td>
-                                <td>20</td>
-                                <td>See - Edit - Delete</td>
-                            </tr>)
+                            (
+                                <tr key={exam.id} value={exam.id} className={"table-" + yearBackground(exam.subject_course)}>
+                                    <th scope="row">{exam.subject_course}°</th>
+                                    <td><Link to={`/grading/${exam.id}`}>{exam.subject_short}</Link></td>
+                                    <td>{exam.date}</td>
+                                    <td>20</td>
+                                    <td>See - Edit - Delete</td>
+                                </tr>
+                            )
                         )}
                     </tbody>
                 </table>
