@@ -4,7 +4,7 @@ from django.http import JsonResponse
 # from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Student, Subject, Exam
+from .models import Student, Subject, Exam, Grade
 
 #region STUDENT VIEWS
 def students(request):
@@ -172,4 +172,13 @@ def add_exam(request):
 
         return JsonResponse({"success" : "Exam created succesfully"}, status=201) # Created
 
+#endregion
+
+#region GRADING VIEWS
+def grading_info(request, exam_id):
+
+    # Get exam grading data from ID
+    gradings = Grade.objects.filter(exam=exam_id).order_by("student__last_name", "student__first_name")
+
+    return JsonResponse({"grading_data" : [grade.serialize() for grade in gradings]})
 #endregion
