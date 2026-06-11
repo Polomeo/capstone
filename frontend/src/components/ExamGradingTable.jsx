@@ -1,15 +1,22 @@
 import { useContext, useEffect } from "react"
 import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
-function ExamGradingTable(){
+import StudentGradingForm from "./StudentGradingForm";
+
+function ExamGradingTable({ examId }){
     
     const [gradingList, setGradingList] = useContext(GradingExamContext)
 
     // Fetch the data
     useEffect(() => {
-        fetch('URL for grading list')
-        //... setGradingList(data.grading_list)
-    })
+        fetch(`http://localhost:8000/api/grading/${examId}`)
+        .then(res => res.json())
+        .then(data => {
+            setGradingList(data.grading_data);
+            console.log(data.grading_data);
+        })
+        .catch(error => console.error('Error: ', error));
+    }, [])
 
 
     return(
@@ -21,4 +28,4 @@ function ExamGradingTable(){
     )
 }
 
-export default AddStudentButton
+export default ExamGradingTable

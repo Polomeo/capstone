@@ -1,4 +1,8 @@
+// Components
+import ExamGradingTable from "../components/ExamGradingTable"
 import StudentGradingForm from "../components/StudentGradingForm"
+
+// Contexts
 import GradingExamContextProvider from "../contexts/GradingExamContextProvider"
 
 function GradingPage(){
@@ -13,11 +17,7 @@ function GradingPage(){
         <div className="container">
             <GradingExamContextProvider>
                 Hello from Grading Page
-                <form className="form-inline">
-                    {testExamData.map((examData) => (
-                        <StudentGradingForm StudentGradingData={examData} key={examData.id} />
-                    ))}
-                </form>
+                <ExamGradingTable examId="1" />
             </GradingExamContextProvider>
         </div>
     )
