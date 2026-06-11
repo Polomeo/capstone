@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<StudentsPage />} />
           <Route path="/exams" element={<ExamsPage />} />
-          <Route path="/grading" element={<GradingPage />} />
+          <Route path="/grading/:id" element={<GradingPage />} />
         </Routes>
       </main>
     </div>
