@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom" // for using URL parameters
 
 // Components
 import ExamGradingTable from "../components/ExamGradingTable"
@@ -6,6 +6,7 @@ import StudentGradingForm from "../components/StudentGradingForm"
 
 // Contexts
 import GradingExamContextProvider from "../contexts/GradingExamContextProvider"
+import ExamGradingHeader from "../components/ExamGradingHeader";
 
 function GradingPage(){
 
@@ -14,7 +15,7 @@ function GradingPage(){
     return(
         <div className="container">
             <GradingExamContextProvider>
-                Hello from Grading Page
+                <ExamGradingHeader examId={ id } />
                 <ExamGradingTable examId={ id } />
             </GradingExamContextProvider>
         </div>

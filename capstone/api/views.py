@@ -177,8 +177,9 @@ def add_exam(request):
 #region GRADING VIEWS
 def grading_info(request, exam_id):
 
-    # Get exam grading data from ID
+    # Get exam and grading data
     gradings = Grade.objects.filter(exam=exam_id).order_by("student__last_name", "student__first_name")
+    exam = Exam.objects.get(id=exam_id)
 
-    return JsonResponse({"grading_data" : [grade.serialize() for grade in gradings]})
+    return JsonResponse({"exam_data" : exam.serialize(), "grading_data" : [grade.serialize() for grade in gradings]})
 #endregion
