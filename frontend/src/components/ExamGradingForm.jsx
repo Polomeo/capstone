@@ -20,12 +20,27 @@ function ExamGradingForm({ examId }){
         .catch(error => console.error('Error: ', error));
     }, [])
 
+    function handleCancelButton(event) {
+        event.preventDefault();
+        // Redirect to exams list page
+        }
+    
+
 
     return(
         <form className="form-inline">
-            {gradingData.map((examData) => (
-                <StudentGradingForm StudentGradingData={examData} key={examData.id} />
-            ))}
+            <div>
+                {gradingData.map((examData) => (
+                    <StudentGradingForm StudentGradingData={examData} key={examData.id} />
+                ))}
+            </div>
+            <button 
+                className="btn btn-danger" 
+                style={{marginLeft: "10px"}}
+                onClick={(e) => handleCancelButton(e)}
+                >
+                Cancel
+            </button>
         </form>
     )
 }

@@ -92,12 +92,16 @@ function AddStudentForm() {
                         type="submit" 
                         className="btn btn-primary"
                         // onClick={(e) => handleEnroll(e)}
-                        >Enroll</button>
+                        >
+                        Enroll
+                    </button>
                     <button 
                         className="btn btn-danger" 
                         style={{marginLeft: "10px"}}
                         onClick={(e) => handleCancelButton(e)}
-                        >Cancel</button>
+                        >
+                        Cancel
+                    </button>
                 </div>
             </div>
         </form>
