@@ -3,11 +3,13 @@ import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
 import StudentGradingForm from "./StudentGradingForm";
 
-function ExamGradingTable({ examId }){
+function ExamGradingForm({ examId }){
     
     const [gradingData, setGradingData] = useContext(GradingExamContext)
 
     // Fetch the data
+    // BUG - This is duplicated code (see ExamGradingHeader)
+    // Maybe can be moved to GradingPage and drill the object
     useEffect(() => {
         fetch(`http://localhost:8000/api/grading/${examId}`)
         .then(res => res.json())
@@ -28,4 +30,4 @@ function ExamGradingTable({ examId }){
     )
 }
 
-export default ExamGradingTable
+export default ExamGradingForm
