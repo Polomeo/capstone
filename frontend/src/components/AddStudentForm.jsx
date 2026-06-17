@@ -58,7 +58,11 @@ function AddStudentForm() {
 
   
     return (
-        <form onSubmit={(e) => handleEnroll(e)} className="border border-info rounded" style={{padding: "10px", margin: "10px 0"}}>
+        <form 
+            onSubmit={(e) => handleEnroll(e)} 
+            className="border border-info rounded" 
+            style={{padding: "10px", margin: "10px 0"}}
+        >
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>

@@ -55,7 +55,7 @@ function ExamsTable(){
                                     <td><Link to={`/grading/${exam.id}`}>{exam.subject_short}</Link></td>
                                     <td>{exam.date}</td>
                                     <td>20</td>
-                                    <td>See - Edit - Delete</td>
+                                    <td><Link to={`/grading/${exam.id}`}>👁</Link></td>
                                 </tr>
                             )
                         )}

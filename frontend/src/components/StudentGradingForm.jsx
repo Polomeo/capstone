@@ -55,11 +55,12 @@ function StudentGradingForm({ StudentGradingData }){
                         id={"absent_" + StudentGradingData.id} 
                         name={"absent_" + StudentGradingData.id} 
                         checked={ isAbsent }
+                        disabled={ isDeleted }
                         onChange={handleAbsentChange}
                     />
                     <label
                         className={`form-check-label ms-2 small ${isAbsent ? 'text-danger' : 'text-muted'}`}
-                        style={{textDecoration: isAbsent || isDeleted ? "line-through" : "none"}}
+                        style={{textDecoration: isAbsent ? "none" : "line-through" }}
                         htmlFor={"absent_" + StudentGradingData.id} >
                         Absent
                     </label>
