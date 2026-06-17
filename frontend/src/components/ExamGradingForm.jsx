@@ -32,11 +32,12 @@ function ExamGradingForm({ examId }){
         const formData = new FormData(event.currentTarget);
 
         // This converts formData into JSON
-        const formProps = Object.fromEntries(formData);
-        console.log(formProps);
-        // for (const [key, value] of formData.entries()){
-        //     console.log(`${key}: ${value}`);
-        // }
+        // const formProps = Object.fromEntries(formData);
+        // console.log(formProps);
+        for (const [key, value] of formData.entries()){
+            console.log(`${key}: ${value}`);
+            
+        }
 
         // TO DO: send the data in JSON to API
 
