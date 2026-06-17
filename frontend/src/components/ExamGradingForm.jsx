@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react"
 import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
 import StudentGradingForm from "./StudentGradingForm";
+import { Link } from "react-router-dom";
 
 function ExamGradingForm({ examId }){
     
@@ -36,10 +37,10 @@ function ExamGradingForm({ examId }){
             </div>
             <button 
                 className="btn btn-danger" 
-                style={{marginLeft: "10px"}}
-                onClick={(e) => handleCancelButton(e)}
+                // style={{marginLeft: "10px"}}
+                // onClick={(e) => handleCancelButton(e)}
                 >
-                Cancel
+                <Link to="/exams">Cancel</Link>
             </button>
         </form>
     )
