@@ -27,7 +27,11 @@ function StudentGradingForm({ StudentGradingData }){
             className="mx-auto p-2 border-bottom"
             style={{maxWidth : "758px", width : "100%"}}
             >
-            <div className="row g-2 align-items-center text-start">
+            <div 
+                className="row g-2 align-items-center text-start"
+                name={ "student_" + StudentGradingData.id }
+                id={ "student_" + StudentGradingData.id }
+            >
                 <div 
                     className="col-6 col-md-3 fw-semibold"
                     style={{textDecoration: isDeleted ? "line-through" : "none", color: isDeleted ? "red" : "black"}}
