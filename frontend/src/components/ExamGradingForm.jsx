@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
 import StudentGradingForm from "./StudentGradingForm";
@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 function ExamGradingForm({ examId }){
     
-    const [gradingData, setGradingData] = useContext(GradingExamContext)
+    const [gradingData, setGradingData] = useContext(GradingExamContext);
+    // const [resultData, setResultData] = useState([null]);
 
     // Fetch the data
     // BUG - This is duplicated code (see ExamGradingHeader)
@@ -16,7 +17,8 @@ function ExamGradingForm({ examId }){
         .then(res => res.json())
         .then(data => {
             setGradingData(data.grading_data);
-            // console.log(data.grading_data);
+            // By default, the values are the same
+            // setResultData(data.grading_data);
         })
         .catch(error => console.error('Error: ', error));
     }, [])
@@ -31,14 +33,31 @@ function ExamGradingForm({ examId }){
 
         const formData = new FormData(event.currentTarget);
 
-        // This converts formData into JSON
-        const formProps = Object.fromEntries(formData);
-        console.log(formProps);
-        // for (const [key, value] of formData.entries()){
-        //     console.log(`${key}: ${value}`);
-        // }
+        // Iterate through each original studentGrade
+        // and update the data with the formData
+        const updatedGradingData = gradingData.map((studentGrade) => {
+            // Since the HTML inputs has the student ID in them
+            // we store the value here
+            const id = studentGrade.id;
+            
+            // We use "has" here because, if disabled, it wont show up.
+            const isAbsent = formData.has(`absent_${id}`);
+            // Deleted is a hidden input that is always sent
+            const isDeleted = formData.get(`deleted_${id}`);
+            // Grading could be "null" if absent or deleted
+            const grading = formData.get(`grading_${id}`);
 
-        // TO DO: send the data in JSON to API
+
+            return {
+                ...studentGrade,
+                absent: isAbsent,
+                deleted: isDeleted, // this field is added
+                exam_grading : grading ? Number(grading) : null
+            };
+        });
+
+        console.log(gradingData);
+        console.log(updatedGradingData);
 
     }
 
