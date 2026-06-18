@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 function ExamGradingForm({ examId }){
     
     const [gradingData, setGradingData] = useContext(GradingExamContext);
-    // const [resultData, setResultData] = useState([null]);
 
     // Fetch the data
     // BUG - This is duplicated code (see ExamGradingHeader)
@@ -17,8 +16,6 @@ function ExamGradingForm({ examId }){
         .then(res => res.json())
         .then(data => {
             setGradingData(data.grading_data);
-            // By default, the values are the same
-            // setResultData(data.grading_data);
         })
         .catch(error => console.error('Error: ', error));
     }, [])
@@ -41,7 +38,7 @@ function ExamGradingForm({ examId }){
             const id = studentGrade.id;
             
             // We use "has" here because, if disabled, it wont show up.
-            const isAbsent = formData.has(`absent_${id}`);
+            const isAbsent = formData.has(`absent_${id}`); // Make sure is TRUE or FALSE
             // Deleted is a hidden input that is always sent
             const isDeleted = formData.get(`deleted_${id}`);
             // Grading could be "null" if absent or deleted
@@ -56,8 +53,8 @@ function ExamGradingForm({ examId }){
             };
         });
 
-        console.log(gradingData);
-        console.log(updatedGradingData);
+        // console.log(gradingData);
+        // console.log(updatedGradingData);
 
     }
 
