@@ -184,6 +184,9 @@ def grading_info(request, exam_id):
     return JsonResponse({"exam_data" : exam.serialize(), "grading_data" : [grade.serialize() for grade in gradings]})
 
 def update_gradings(request):
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+
     # Get the data from POST
 
     # Validate the data

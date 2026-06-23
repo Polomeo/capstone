@@ -7,12 +7,13 @@ import { Link } from "react-router-dom";
 function ExamGradingForm({ examId }){
     
     const [gradingData, setGradingData] = useContext(GradingExamContext);
+    const [errors, setErrors] = useState([]);
 
     // Fetch the data
     // BUG - This is duplicated code (see ExamGradingHeader)
     // Maybe can be moved to GradingPage and drill the object
     useEffect(() => {
-        fetch(`http://localhost:8000/api/grading/${examId}`)
+        fetch(`http://localhost:8000/api/grading_info/${examId}`)
         .then(res => res.json())
         .then(data => {
             setGradingData(data.grading_data);
@@ -56,6 +57,32 @@ function ExamGradingForm({ examId }){
         // console.log(gradingData);
         // console.log(updatedGradingData);
 
+        // Send the data to API
+        fetch(`http://localhost:800/api/update_gradings`, {
+            method: 'POST',
+            body: JSON.stringify(updatedGradingData),
+            cache: 'reload',
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.errors){
+                // Add them to error state
+                let errorsResponse = [];
+
+                for (const errorCode in response.errors){
+                    errorsResponse.push(response.errors[errorCode])
+                }
+
+                setErrors(errorsResponse);
+                console.log("Errors: " + errors);
+            }
+            else if (response.success){
+                console.log("Gradings updated.");
+
+                // Set view mode
+            }
+        })
+        .catch(error => console.error("Error: ", error))
     }
 
 
