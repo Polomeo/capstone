@@ -186,10 +186,19 @@ def grading_info(request, exam_id):
 def update_gradings(request):
     if request.method != 'POST':
         return JsonResponse({"error" : "POST request required."})
+    
+    MIN_GRADE : int = 1
+    MAX_GRADE : int = 10
 
     # Get the data from POST
+    data = json.loads(request.body)
 
-    # Validate the data
+    # Posible errors
+    errors = {}
+    
+    #region GRADING DATA VALIDATION
+    
+    #endregion
 
     # Create a LIST with the ID of objects to be deleted
 

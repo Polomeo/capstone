@@ -103,7 +103,6 @@ function ExamGradingForm({ examId }){
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                    // onClick={(e) => handleEnroll(e)}
                 >
                 Save
                 </button>
