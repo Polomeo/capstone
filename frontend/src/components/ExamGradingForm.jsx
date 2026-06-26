@@ -39,7 +39,7 @@ function ExamGradingForm({ examId }){
             const id = studentGrade.id;
             
             // We use "has" here because, if disabled, it wont show up.
-            const isAbsent = formData.has(`absent_${id}`); // Make sure is TRUE or FALSE
+            const isAbsent = formData.has(`absent_${id}`) ? 'true' : 'false'; // Make sure is TRUE or FALSE
             // Deleted is a hidden input that is always sent
             const isDeleted = formData.get(`deleted_${id}`);
             // Grading could be "null" if absent or deleted
@@ -50,7 +50,7 @@ function ExamGradingForm({ examId }){
                 ...studentGrade,
                 absent: isAbsent,
                 deleted: isDeleted, // this field is added
-                exam_grading : grading ? Number(grading) : null
+                new_exam_grading : grading ? Number(grading) : null
             };
         });
 

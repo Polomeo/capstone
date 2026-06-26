@@ -193,7 +193,30 @@ def update_gradings(request):
 
     # Get the data from POST
     data = json.loads(request.body)
-    print(data)
+
+    # Testing data to update
+    update_absents = []
+    update_deleted = []
+    update_gradings = []
+    for grading in data:
+        print(f"Grading ID: {grading["id"]}")
+        print(f"Name: {grading["student_full_name"]}")
+        print(f"Subject: {grading["subject_short"]}")
+        print(f"Last Grading: {grading["exam_grading"]}")
+        print(f"New Grading: {grading["new_exam_grading"]}")
+        print(f"Absent: {grading["absent"]}")
+        print(f"Deleted: {grading["deleted"]}")
+        print("--------------------")
+        if grading['deleted'] == 'true':
+            update_deleted.append(int(grading['id']))
+        elif grading['absent'] == 'true':
+            update_absents.append(int(grading['id']))
+        elif grading['new_exam_grading'] != grading['exam_grading']:
+            update_gradings.append(int(grading['id']))
+        
+    print("Grades to delete: ", update_deleted)
+    print("Grades to set absent: ", update_absents)
+    print("Grades to update gradings: ", update_gradings)
 
     # Posible errors
     errors = {}
