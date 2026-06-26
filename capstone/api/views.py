@@ -207,9 +207,9 @@ def update_gradings(request):
         print(f"Absent: {grading["absent"]}")
         print(f"Deleted: {grading["deleted"]}")
         print("--------------------")
-        if grading['deleted'] == 'true':
+        if grading['deleted'].lower() == 'true':
             update_deleted.append(int(grading['id']))
-        elif grading['absent'] == 'true':
+        elif grading['absent'].lower() == 'true':
             update_absents.append(int(grading['id']))
         elif grading['new_exam_grading'] != grading['exam_grading']:
             update_gradings.append(int(grading['id']))
