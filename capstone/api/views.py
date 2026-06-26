@@ -182,4 +182,36 @@ def grading_info(request, exam_id):
     exam = Exam.objects.get(id=exam_id)
 
     return JsonResponse({"exam_data" : exam.serialize(), "grading_data" : [grade.serialize() for grade in gradings]})
+
+def update_gradings(request):
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+    
+    MIN_GRADE : int = 1
+    MAX_GRADE : int = 10
+
+    # Get the data from POST
+    data = json.loads(request.body)
+
+    # Posible errors
+    errors = {}
+    
+    #region GRADING DATA VALIDATION
+    
+    #endregion
+
+    # Create a LIST with the ID of objects to be deleted
+
+    # Create a DICT with objects to be updated, 
+    # and their updated values (grading, absent)
+
+    # DELETE the registers in the DELETE list
+
+    # UPDATE the objects in the UPDATE DICT
+
+    # Send the response
+    
+    
+    pass
+
 #endregion

@@ -35,7 +35,7 @@ function AddStudentForm() {
             if(response.errors){
                 
                 // Add them to the error state
-                let errorsResponse = []
+                let errorsResponse = [];
 
                 for (const errorCode in response.errors) {
                     errorsResponse.push(response.errors[errorCode]);
