@@ -7,7 +7,7 @@ function ExamGradingHeader({ examId }){
 
     // Fetch the data
     useEffect(() => {
-        fetch(`http://localhost:8000/api/grading/${examId}`)
+        fetch(`http://localhost:8000/api/grading_info/${examId}`)
         .then(res => res.json())
         .then(data => {
             setExamData(data.exam_data);

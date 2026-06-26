@@ -183,6 +183,7 @@ def grading_info(request, exam_id):
 
     return JsonResponse({"exam_data" : exam.serialize(), "grading_data" : [grade.serialize() for grade in gradings]})
 
+@csrf_exempt
 def update_gradings(request):
     if request.method != 'POST':
         return JsonResponse({"error" : "POST request required."})
@@ -192,6 +193,7 @@ def update_gradings(request):
 
     # Get the data from POST
     data = json.loads(request.body)
+    print(data)
 
     # Posible errors
     errors = {}
@@ -212,6 +214,6 @@ def update_gradings(request):
     # Send the response
     
     
-    pass
+    return JsonResponse({"success" : "testing"})
 
 #endregion

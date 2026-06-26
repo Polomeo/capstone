@@ -58,7 +58,7 @@ function ExamGradingForm({ examId }){
         // console.log(updatedGradingData);
 
         // Send the data to API
-        fetch(`http://localhost:800/api/update_gradings`, {
+        fetch(`http://localhost:8000/api/update_gradings`, {
             method: 'POST',
             body: JSON.stringify(updatedGradingData),
             cache: 'reload',
