@@ -194,7 +194,11 @@ def update_gradings(request):
     # Get the data from POST
     data = json.loads(request.body)
 
-    # Testing data to update
+    # Posible errors
+    errors = {}
+    
+    #region GRADING DATA VALIDATION
+    
     update_absents = []
     update_deleted = []
     update_gradings = []
@@ -207,36 +211,50 @@ def update_gradings(request):
         print(f"Absent: {grading["absent"]}")
         print(f"Deleted: {grading["deleted"]}")
         print("--------------------")
+
+        # Add to delete list
         if grading['deleted'].lower() == 'true':
             update_deleted.append(int(grading['id']))
-        elif grading['absent'].lower() == 'true':
-            update_absents.append(int(grading['id']))
-        elif grading['new_exam_grading'] != grading['exam_grading']:
-            update_gradings.append(int(grading['id']))
+            continue
         
-    print("Grades to delete: ", update_deleted)
-    print("Grades to set absent: ", update_absents)
-    print("Grades to update gradings: ", update_gradings)
+        # Add to absent list
+        if grading['absent'].lower() == 'true':
+            update_absents.append(int(grading['id']))
+            continue
 
-    # Posible errors
-    errors = {}
-    
-    #region GRADING DATA VALIDATION
-    
+        # Check if grading == null, and not absent or deleted
+        if (grading['new_exam_grading'] == None):
+            print(f"{grading['student_full_name']} has no grading and is not absent.")
+            errors[f"errNoGradingNoAbsent_{grading['id']}"] = f"{grading['student_full_name']} has no grading and is not absent."
+            continue
+        
+        # Grading is out of range
+        if int(grading['new_exam_grading']) < MIN_GRADE or int(grading['new_exam_grading']) > MAX_GRADE:
+            errors[f"errGradingOutOfRange_{grading['id']}"] = f"{grading['student_full_name']} grade must be between {MIN_GRADE} and {MAX_GRADE}."
+
+        # Add to update grading list
+        if grading['new_exam_grading'] != grading['exam_grading']:
+            update_gradings.append(int(grading['id']))
+
     #endregion
 
     # Create a LIST with the ID of objects to be deleted
+    print("Grades to delete: ", update_deleted)
 
     # Create a DICT with objects to be updated, 
     # and their updated values (grading, absent)
+    print("Grades to set absent: ", update_absents)
+    print("Grades to update gradings: ", update_gradings)
 
     # DELETE the registers in the DELETE list
 
     # UPDATE the objects in the UPDATE DICT
 
     # Send the response
+    if len(errors) > 0:
+        print(errors)
+        return JsonResponse({"errors" : errors}, status = 406) # Not acceptable
     
-    
-    return JsonResponse({"success" : "testing"})
+    return JsonResponse({"success" : "Grades valid"})
 
 #endregion

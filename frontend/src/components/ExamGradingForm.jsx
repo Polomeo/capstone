@@ -77,7 +77,7 @@ function ExamGradingForm({ examId }){
                 console.log("Errors: " + errors);
             }
             else if (response.success){
-                console.log("Gradings updated.");
+                console.log(response.success);
 
                 // Set view mode
             }
