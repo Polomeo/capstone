@@ -48,7 +48,7 @@ function ExamGradingForm({ examId }){
 
             return {
                 ...studentGrade,
-                absent: isAbsent,
+                new_absent: isAbsent,
                 deleted: isDeleted, // this field is added
                 new_exam_grading : grading ? Number(grading) : null
             };

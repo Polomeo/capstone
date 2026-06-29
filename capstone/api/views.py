@@ -202,24 +202,35 @@ def update_gradings(request):
     update_absents = []
     update_deleted = []
     update_gradings = []
+    
     for grading in data:
+        print("--------------------")
         print(f"Grading ID: {grading["id"]}")
         print(f"Name: {grading["student_full_name"]}")
         print(f"Subject: {grading["subject_short"]}")
         print(f"Last Grading: {grading["exam_grading"]}")
         print(f"New Grading: {grading["new_exam_grading"]}")
         print(f"Absent: {grading["absent"]}")
+        print(f"New Absent: {grading["new_absent"]}")
         print(f"Deleted: {grading["deleted"]}")
-        print("--------------------")
 
         # Add to delete list
         if grading['deleted'].lower() == 'true':
             update_deleted.append(int(grading['id']))
             continue
         
-        # Add to absent list
-        if grading['absent'].lower() == 'true':
+        # Cast Absent to True or False
+        new_absent : bool
+        if grading['new_absent'].lower() == 'true':
+            new_absent = True
+        else:
+            new_absent = False
+        
+        # Add to absent list if changed
+        if grading['absent'] != new_absent:
             update_absents.append(int(grading['id']))
+            
+        if new_absent == True:
             continue
 
         # Check if grading == null, and not absent or deleted
@@ -231,6 +242,7 @@ def update_gradings(request):
         # Grading is out of range
         if int(grading['new_exam_grading']) < MIN_GRADE or int(grading['new_exam_grading']) > MAX_GRADE:
             errors[f"errGradingOutOfRange_{grading['id']}"] = f"{grading['student_full_name']} grade must be between {MIN_GRADE} and {MAX_GRADE}."
+            continue
 
         # Add to update grading list
         if grading['new_exam_grading'] != grading['exam_grading']:
@@ -254,7 +266,14 @@ def update_gradings(request):
     if len(errors) > 0:
         print(errors)
         return JsonResponse({"errors" : errors}, status = 406) # Not acceptable
-    
-    return JsonResponse({"success" : "Grades valid"})
+    else:
+        # Delete
+        Grade.objects.filter(id__in = update_deleted).delete()
+        # Update absents
+        Grade.objects.filter(id__in = update_absents).update(absent = new_absent)
+        # Update grades
+
+
+        return JsonResponse({"success" : "Grades valid"})
 
 #endregion
