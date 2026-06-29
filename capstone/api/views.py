@@ -185,6 +185,10 @@ def grading_info(request, exam_id):
 
 @csrf_exempt
 def update_gradings(request):
+    '''
+    Checks if Gradings data is valid and updates de Database
+    '''
+
     if request.method != 'POST':
         return JsonResponse({"error" : "POST request required."})
     
@@ -198,11 +202,12 @@ def update_gradings(request):
     # Posible errors
     errors = {}
     
-    #region GRADING DATA VALIDATION
-    
+    # Bulk update data
     update_deleted = []
     update_bulk_absents = []
     update_bulk_gradings = []
+    
+    #region GRADING DATA VALIDATION  
     
     for grading in data:
         if SHOW_DEBUG_INFO:
