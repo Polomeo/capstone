@@ -190,6 +190,7 @@ def update_gradings(request):
     
     MIN_GRADE : int = 1
     MAX_GRADE : int = 10
+    SHOW_DEBUG_INFO : bool = True
 
     # Get the data from POST
     data = json.loads(request.body)
@@ -199,20 +200,21 @@ def update_gradings(request):
     
     #region GRADING DATA VALIDATION
     
-    update_absents = []
     update_deleted = []
-    update_gradings = []
+    update_bulk_absents = []
+    update_bulk_gradings = []
     
     for grading in data:
-        print("--------------------")
-        print(f"Grading ID: {grading["id"]}")
-        print(f"Name: {grading["student_full_name"]}")
-        print(f"Subject: {grading["subject_short"]}")
-        print(f"Last Grading: {grading["exam_grading"]}")
-        print(f"New Grading: {grading["new_exam_grading"]}")
-        print(f"Absent: {grading["absent"]}")
-        print(f"New Absent: {grading["new_absent"]}")
-        print(f"Deleted: {grading["deleted"]}")
+        if SHOW_DEBUG_INFO:
+            print("--------------------")
+            print(f"Grading ID: {grading["id"]}")
+            print(f"Name: {grading["student_full_name"]}")
+            print(f"Subject: {grading["subject_short"]}")
+            print(f"Last Grading: {grading["exam_grading"]}")
+            print(f"New Grading: {grading["new_exam_grading"]}")
+            print(f"Absent: {grading["absent"]}")
+            print(f"New Absent: {grading["new_absent"]}")
+            print(f"Deleted: {grading["deleted"]}")
 
         # Add to delete list
         if grading['deleted'].lower() == 'true':
@@ -228,14 +230,16 @@ def update_gradings(request):
         
         # Add to absent list if changed
         if grading['absent'] != new_absent:
-            update_absents.append(int(grading['id']))
+            # Get the grading object from DB and update its grading
+            grade_obj = Grade.objects.get(id=int(grading['id']))
+            grade_obj.absent = new_absent
+            update_bulk_absents.append(grade_obj)
             
         if new_absent == True:
             continue
 
         # Check if grading == null, and not absent or deleted
         if (grading['new_exam_grading'] == None):
-            print(f"{grading['student_full_name']} has no grading and is not absent.")
             errors[f"errNoGradingNoAbsent_{grading['id']}"] = f"{grading['student_full_name']} has no grading and is not absent."
             continue
         
@@ -246,33 +250,29 @@ def update_gradings(request):
 
         # Add to update grading list
         if grading['new_exam_grading'] != grading['exam_grading']:
-            update_gradings.append(int(grading['id']))
+            # update_bulk_gradings.append(int(grading['id']))
+            grade_obj = Grade.objects.get(id=int(grading['id']))
+            grade_obj.grading = int(grading['new_exam_grading'])
+            update_bulk_gradings.append(grade_obj)
 
     #endregion
 
-    # Create a LIST with the ID of objects to be deleted
-    print("Grades to delete: ", update_deleted)
-
-    # Create a DICT with objects to be updated, 
-    # and their updated values (grading, absent)
-    print("Grades to set absent: ", update_absents)
-    print("Grades to update gradings: ", update_gradings)
-
-    # DELETE the registers in the DELETE list
-
-    # UPDATE the objects in the UPDATE DICT
+    if SHOW_DEBUG_INFO:
+        print("Grades to delete: ", update_deleted)
+        print("Grades to set absent: ", update_bulk_absents)
+        print("Grades to update gradings: ", update_bulk_gradings)
 
     # Send the response
     if len(errors) > 0:
-        print(errors)
+        if SHOW_DEBUG_INFO: print(errors)
         return JsonResponse({"errors" : errors}, status = 406) # Not acceptable
     else:
         # Delete
         Grade.objects.filter(id__in = update_deleted).delete()
         # Update absents
-        Grade.objects.filter(id__in = update_absents).update(absent = new_absent)
+        Grade.objects.bulk_update(update_bulk_absents, ['absent'])
         # Update grades
-
+        Grade.objects.bulk_update(update_bulk_gradings, ['grading'])
 
         return JsonResponse({"success" : "Grades valid"})
 
