@@ -194,7 +194,7 @@ def update_gradings(request):
     
     MIN_GRADE : int = 1
     MAX_GRADE : int = 10
-    SHOW_DEBUG_INFO : bool = True
+    SHOW_DEBUG_INFO : bool = False # Shows grading info in console
 
     # Get the data from POST
     data = json.loads(request.body)
@@ -279,6 +279,6 @@ def update_gradings(request):
         # Update grades
         Grade.objects.bulk_update(update_bulk_gradings, ['grading'])
 
-        return JsonResponse({"success" : "Grades valid"})
+        return JsonResponse({"success" : "Grades updated successfully"})
 
 #endregion
