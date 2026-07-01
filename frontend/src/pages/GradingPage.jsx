@@ -9,6 +9,7 @@ import EditGradingsButton from "../components/EditGradingsButton"
 
 // Contexts
 import GradingExamContextProvider from "../contexts/GradingExamContextProvider"
+import ExamGradingAddStudentList from "../components/ExamGradingAddStudentList";
 
 export const IsEditingGradingsContext = createContext();
 
@@ -29,7 +30,8 @@ function GradingPage(){
                         {(!isEditingGradings) && <EditGradingsButton />}
                     </div>
                     <div>
-                        {(isEditingGradings) && <ExamGradingForm examId={ id } />}
+                        {/* {(isEditingGradings) && <ExamGradingForm examId={ id } />} */}
+                        {(isEditingGradings) && <ExamGradingAddStudentList examId={ id } />}
                         {(!isEditingGradings) && <ExamGradingList examId={ id } />}
                     </div>
                 </IsEditingGradingsContext.Provider>
