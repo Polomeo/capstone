@@ -18,29 +18,24 @@ function ExamGradingList({ examId }){
     }, [])
 
     return (
-        <div>
-            Grading data
-            <div className="students-table">
-                <div className="table-responsive">
-                    <table className="table table-hover align-middle">
-                        <thead>
-                            <tr className="table-secondary">
-                                <th scope="col">Student</th>
-                                <th scope="col">Grading</th>
-                                <th scope="col">Is abstent?</th>
+        <div className="students-table col-md-4">
+            <div className="table-responsive">
+                <table className="table table-hover align-middle">
+                    <thead>
+                        <tr className="table-secondary">
+                            <th scope="col">Student</th>
+                            <th scope="col">Grading</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {gradingData.map((grading) =>
+                            <tr key={grading.id} value={grading.id}>
+                                <td>{grading.student_full_name}</td>
+                                <td>{grading.absent ? "Absent" : grading.exam_grading}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {gradingData.map((grading) =>
-                                <tr key={grading.id} value={grading.id}>
-                                    <td>{grading.student_full_name}</td>
-                                    <td>{grading.grading}</td>
-                                    <td>{grading.absent}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                        )}
+                    </tbody>
+                </table>
             </div>
         </div>
     )
