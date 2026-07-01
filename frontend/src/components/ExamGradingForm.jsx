@@ -3,9 +3,11 @@ import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
 import StudentGradingForm from "./StudentGradingForm";
 import { Link } from "react-router-dom";
+import { IsEditingGradingsContext } from "../pages/GradingPage";
 
 function ExamGradingForm({ examId }){
     
+    const [isEditingGradings, setIsEditingGradings] = useContext(IsEditingGradingsContext)
     const [gradingData, setGradingData] = useContext(GradingExamContext);
     const [errors, setErrors] = useState([]);
 
@@ -24,6 +26,7 @@ function ExamGradingForm({ examId }){
     function handleCancelButton(event) {
         event.preventDefault();
         // Redirect to exams list page
+        setIsEditingGradings(false);
     }
     
     function handleSave(event) {
@@ -78,13 +81,12 @@ function ExamGradingForm({ examId }){
             }
             else if (response.success){
                 console.log(response.success);
-
                 // Set view mode
+                setIsEditingGradings(false);
             }
         })
         .catch(error => console.error("Error: ", error))
     }
-
 
     return(
         <form
@@ -97,8 +99,11 @@ function ExamGradingForm({ examId }){
                 ))}
             </div>
             <div className="form-group col-md-2">
-                <button className="btn btn-danger">
-                    <Link to="/exams">Cancel</Link>
+                <button 
+                    className="btn btn-danger"
+                    onClick={(e) => handleCancelButton(e)}>
+                    {/* <Link to="/exams">Cancel</Link> */}
+                    Cancel
                 </button>
                 <button 
                     type="submit" 

@@ -3,13 +3,15 @@ import { createContext, useState } from "react";
 
 // Components
 import ExamGradingHeader from "../components/ExamGradingHeader";
+import ExamGradingList from "../components/ExamGradingList";
 import ExamGradingForm from "../components/ExamGradingForm"
+import EditGradingsButton from "../components/EditGradingsButton"
 
 // Contexts
 import GradingExamContextProvider from "../contexts/GradingExamContextProvider"
-import ExamGradingList from "../components/ExamGradingList";
 
 export const IsEditingGradingsContext = createContext();
+
 
 function GradingPage(){
 
@@ -22,10 +24,15 @@ function GradingPage(){
         <div className="container">
             <GradingExamContextProvider>
                 <ExamGradingHeader examId={ id } />
-                <div>
-                    {(isEditingGradings) && <ExamGradingForm examId={ id } />}
-                    {(!isEditingGradings) && <ExamGradingList examId={ id } />}
-                </div>
+                <IsEditingGradingsContext.Provider value={[isEditingGradings, setIsEditingGradings]}>
+                    <div>
+                        {(!isEditingGradings) && <EditGradingsButton />}
+                    </div>
+                    <div>
+                        {(isEditingGradings) && <ExamGradingForm examId={ id } />}
+                        {(!isEditingGradings) && <ExamGradingList examId={ id } />}
+                    </div>
+                </IsEditingGradingsContext.Provider>
             </GradingExamContextProvider>
         </div>
     )
