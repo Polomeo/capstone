@@ -3,10 +3,15 @@ import { useState } from "react";
 function ExamGradingAddStudentForm({ StudentData }){
 
     // List the students and a Checkbox to add to exam
-
     // THIS WILL WORK LIKE ExamGradingForm and StudentGradingForm
 
-    const [alreadyInExam, setAlreadyInExam] = useState(false);
+    const [alreadyInExam, setAlreadyInExam] = useState(StudentData.already_in_exam);
+    const [alreadyApproved, setAlreadyApproved] = useState(StudentData.already_approved);
+    const [readyToAdd, setReadyToAdd] = useState(false);
+
+    const handleReadyToAdd = (event) => {
+        setReadyToAdd(event.target.checked);
+    }
 
     return (
         <div
@@ -20,25 +25,25 @@ function ExamGradingAddStudentForm({ StudentData }){
             >
                 <div 
                     className="col-6 col-md-3 fw-semibold"
-                    style={{textDecoration: alreadyInExam ? "line-through" : "none", color: alreadyInExam ? "grey" : "black"}}
+                    style={{textDecoration: alreadyInExam || alreadyApproved ? "line-through" : "none", color: alreadyInExam || alreadyApproved ? "grey" : "black"}}
                 >
                     { StudentData.student_full_name }
                 </div>
                 
-                <div className="col-md-2">
+                <div className="col-md-4">
                     <input type="checkbox" 
                         className="form-check-input" 
                         id={"to_add_" + StudentData.id} 
                         name={"to_add_" + StudentData.id} 
-                        checked={ alreadyInExam }
-                        disabled={ alreadyInExam }
-                        // onChange={handleAbsentChange}
+                        checked={ readyToAdd }
+                        disabled={ alreadyInExam || alreadyApproved }
+                        onChange={handleReadyToAdd}
                     />
                     <label
-                        className={`form-check-label ms-2 small ${alreadyInExam ? 'text-info' : 'text-muted'}`}
+                        className={`form-check-label ms-2 small ${alreadyInExam ? 'text-success' : alreadyApproved ? 'text-info' : 'text-muted'}`}
                         // style={{textDecoration: alreadyInExam ? "none" : "line-through" }}
                         htmlFor={"to_add_" + StudentData.id} >
-                        Added
+                        {alreadyInExam ? "Already in exam" : alreadyApproved ? "Already approved" : "Add to exam"}
                     </label>
                 </div>
             </div>
