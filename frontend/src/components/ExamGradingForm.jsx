@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react"
-import { GradingExamContext } from "../contexts/GradingExamContextProvider";
+import { Link } from "react-router-dom";
 
 import StudentGradingForm from "./StudentGradingForm";
-import { Link } from "react-router-dom";
+import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 import { IsEditingGradingsContext } from "../pages/GradingPage";
 
 function ExamGradingForm({ examId }){
@@ -25,7 +25,6 @@ function ExamGradingForm({ examId }){
 
     function handleCancelButton(event) {
         event.preventDefault();
-        // Redirect to exams list page
         setIsEditingGradings(false);
     }
     
@@ -56,9 +55,6 @@ function ExamGradingForm({ examId }){
                 new_exam_grading : grading ? Number(grading) : null
             };
         });
-
-        // console.log(gradingData);
-        // console.log(updatedGradingData);
 
         // Send the data to API
         fetch(`http://localhost:8000/api/update_gradings`, {
@@ -102,7 +98,6 @@ function ExamGradingForm({ examId }){
                 <button 
                     className="btn btn-danger"
                     onClick={(e) => handleCancelButton(e)}>
-                    {/* <Link to="/exams">Cancel</Link> */}
                     Cancel
                 </button>
                 <button 
