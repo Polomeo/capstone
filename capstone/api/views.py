@@ -196,7 +196,7 @@ def students_to_add_to_exam(request, exam_id):
     # Get the previous exams of the same subject
     past_exam_grades = Grade.objects.filter(exam__subject = current_exam.subject).exclude(exam=current_exam)
 
-    studentData = []
+    student_data = []
 
     # Check if student is already in exam or aproved it
     for student in students:
@@ -221,9 +221,9 @@ def students_to_add_to_exam(request, exam_id):
         }
 
         # Add to list
-        studentData.append(studentGradingInfo)
+        student_data.append(studentGradingInfo)
 
-    return JsonResponse({'studentData' : studentData})
+    return JsonResponse({'student_data' : student_data})
 
 
 
