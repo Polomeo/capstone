@@ -213,7 +213,7 @@ def students_to_add_to_exam(request, exam_id):
         ).exists()
 
         # Compile the info
-        studentGradingInfo = {
+        student_grading_info = {
             'id' : student.id,
             'student_full_name' : f"{student.last_name}, {student.first_name}",
             'already_in_exam' : already_in_exam,
@@ -221,7 +221,7 @@ def students_to_add_to_exam(request, exam_id):
         }
 
         # Add to list
-        student_data.append(studentGradingInfo)
+        student_data.append(student_grading_info)
 
     return JsonResponse({'student_data' : student_data})
 
