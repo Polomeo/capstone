@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+// Components
 import ExamGradingAddStudentForm from "./ExamGradingAddStudentForm";
 
-
+// Contexts
+import { IsAddingStudentsContext } from "../pages/GradingPage";
 
 function ExamGradingAddStudentList({examId}){
 
+    const [isAddingStudentsToExam, setIsAddingStudentsToExam] = useContext(IsAddingStudentsContext);
     const [studentData, setStudentsData] = useState([]);
 
     // const studentData = [
@@ -24,6 +28,7 @@ function ExamGradingAddStudentList({examId}){
 
     function handleCancelButton(event){
         event.preventDefault();
+        setIsAddingStudentsToExam(false);
         console.log("Canceled.")
     }
     
@@ -42,33 +47,39 @@ function ExamGradingAddStudentList({examId}){
                 studentsToAdd.push(name.replace("to_add_", ""));
             }
         };
+
+        // FETCH SAVE STUDENTS ADDED
+
         console.log(studentsToAdd);
+        setIsAddingStudentsToExam(false);
 
     }
 
     return (
-        <form 
-            onSubmit={(event) => handleAddStudents(event)}
-            className="form-inline"
-        >
         <div>
-            {studentData.map((student) => (
-                <ExamGradingAddStudentForm StudentData={student} key={student.id} />
-            ))}
+            <form 
+                onSubmit={(event) => handleAddStudents(event)}
+                className="form-inline"
+            >
+            <div>
+                {studentData.map((student) => (
+                    <ExamGradingAddStudentForm StudentData={student} key={student.id} />
+                ))}
+            </div>
+            <div className="form-group col-md-4">
+                <button 
+                    className="btn btn-danger"
+                    onClick={(event) => handleCancelButton(event)}>
+                Cancel
+                </button>
+                <button
+                    className="btn btn-primary"
+                    type="submit">
+                Add students to exam
+                </button>
+            </div>
+            </form>
         </div>
-        <div className="form-group col-md-4">
-            <button 
-                className="btn btn-danger"
-                onClick={(event) => handleCancelButton(event)}>
-            Cancel
-            </button>
-            <button
-                className="btn btn-primary"
-                type="submit">
-            Add students to exam
-            </button>
-        </div>
-        </form>
     )
 
 }

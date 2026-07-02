@@ -22,7 +22,6 @@ function GradingPage(){
     const [isEditingGradings, setIsEditingGradings] = useState(false);
     const [isAddingStudentsToExam, setIsAddingStudentsToExam] = useState(false);
 
-
     return(
         <div className="container">
             <GradingExamContextProvider>
@@ -31,11 +30,13 @@ function GradingPage(){
                     <div>
                         {(!isEditingGradings) && <EditGradingsButton />}
                     </div>
-                    <div>
-                        {/* {(isEditingGradings) && <ExamGradingForm examId={ id } />} */}
-                        {(isEditingGradings) && <ExamGradingAddStudentList examId={ id } />}
-                        {(!isEditingGradings) && <ExamGradingList examId={ id } />}
-                    </div>
+                    <IsAddingStudentsContext value={[isAddingStudentsToExam, setIsAddingStudentsToExam]} >
+                        <div>
+                            {(isEditingGradings && !isAddingStudentsToExam) && <ExamGradingForm examId={ id } />}
+                            {(isEditingGradings && isAddingStudentsToExam) && <ExamGradingAddStudentList examId={ id } />}
+                            {(!isEditingGradings) && <ExamGradingList examId={ id } />}
+                        </div>
+                    </IsAddingStudentsContext>
                 </IsEditingGradingsContext.Provider>
             </GradingExamContextProvider>
         </div>

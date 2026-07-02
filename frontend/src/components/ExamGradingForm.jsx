@@ -1,9 +1,13 @@
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 
+// Components
 import StudentGradingForm from "./StudentGradingForm";
-import { GradingExamContext } from "../contexts/GradingExamContextProvider";
+import ExamGradingAddStudentsButton from "./ExamGradingAddStudentsButton";
+
+// Contexts
 import { IsEditingGradingsContext } from "../pages/GradingPage";
+import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
 function ExamGradingForm({ examId }){
     
@@ -85,29 +89,32 @@ function ExamGradingForm({ examId }){
     }
 
     return(
-        <form
-            onSubmit={(e) => handleSave(e)}
-            className="form-inline"
-        >
-            <div>
-                {gradingData.map((examData) => (
-                    <StudentGradingForm StudentGradingData={examData} key={examData.id} />
-                ))}
-            </div>
-            <div className="form-group col-md-2">
-                <button 
-                    className="btn btn-danger"
-                    onClick={(e) => handleCancelButton(e)}>
-                    Cancel
-                </button>
-                <button 
-                    type="submit" 
-                    className="btn btn-primary"
-                >
-                Save
-                </button>
-            </div>
-        </form>
+        <div>
+            <ExamGradingAddStudentsButton />
+            <form
+                onSubmit={(e) => handleSave(e)}
+                className="form-inline"
+            >
+                <div>
+                    {gradingData.map((examData) => (
+                        <StudentGradingForm StudentGradingData={examData} key={examData.id} />
+                    ))}
+                </div>
+                <div className="form-group col-md-2">
+                    <button 
+                        className="btn btn-danger"
+                        onClick={(e) => handleCancelButton(e)}>
+                        Cancel
+                    </button>
+                    <button 
+                        type="submit" 
+                        className="btn btn-primary"
+                    >
+                    Save
+                    </button>
+                </div>
+            </form>
+        </div>        
     )
 }
 
