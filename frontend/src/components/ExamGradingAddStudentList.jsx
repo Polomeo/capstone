@@ -8,7 +8,7 @@ function ExamGradingAddStudentList({examId}){
         {'id': 1, 'student_full_name': "Potter, Harry", 'already_in_exam': false, 'already_approved': false},
         {'id': 2, 'student_full_name': "Weasley, Charlie", 'already_in_exam': true, 'already_approved': true},
         {'id': 3, 'student_full_name': "Dumbledore, Albus", 'already_in_exam': false, 'already_approved': true},
-        {'id': 4, 'student_full_name': "Abbot, Anna", 'already_in_exam': false, 'already_approved': false},
+        {'id': 8, 'student_full_name': "Abbot, Anna", 'already_in_exam': false, 'already_approved': false},
     ]
 
     function handleCancelButton(event){
@@ -17,10 +17,20 @@ function ExamGradingAddStudentList({examId}){
     }
     
     function handleAddStudents(event){
-        e.preventDefault();
+        event.preventDefault();
         console.log("Students added.")
 
         const formData = new FormData(event.currentTarget);
+        const studentsToAdd = [];
+
+        // Check if the entries has been checked
+        for (const [name, value] of formData.entries()) {
+            if (name.startsWith("to_add_") && value === "on"){
+                // Strip the first part and get only the student ID
+                studentsToAdd.push(name.replace("to_add_", ""));
+            }
+        };
+        console.log(studentsToAdd);
 
     }
 
