@@ -183,6 +183,50 @@ def grading_info(request, exam_id):
 
     return JsonResponse({"exam_data" : exam.serialize(), "grading_data" : [grade.serialize() for grade in gradings]})
 
+def students_to_add_to_exam(request, exam_id):
+
+    APPROVING_MARK : int = 4 # Minimal mark to approve the exam (this could be in a config file)
+
+    # Get the students and the grades
+    students = Student.objects.all().order_by('last_name', 'first_name')
+    
+    current_exam = Exam.objects.get(id = exam_id)
+    current_exam_grades = Grade.objects.filter(exam = current_exam)
+    
+    # Get the previous exams of the same subject
+    past_exam_grades = Grade.objects.filter(exam__subject = current_exam.subject).exclude(exam=current_exam)
+
+    studentData = []
+
+    # Check if student is already in exam or aproved it
+    for student in students:
+        # Checks if the student is already in the exam
+        already_in_exam : bool = current_exam_grades.filter(
+            student = student
+            ).exists()
+        
+        # Checks if approved the subject previously
+        already_approved : bool = past_exam_grades.filter(
+            student = student,
+            grading__gte = APPROVING_MARK, # __gte => greater than or equal to
+            absent = False
+        ).exists()
+
+        # Compile the info
+        studentGradingInfo = {
+            'id' : student.id,
+            'student_full_name' : f"{student.last_name}, {student.first_name}",
+            'already_in_exam' : already_in_exam,
+            'already_approved' : already_approved,
+        }
+
+        # Add to list
+        studentData.append(studentGradingInfo)
+
+    return JsonResponse({'studentData' : studentData})
+
+
+
 @csrf_exempt
 def update_gradings(request):
     '''

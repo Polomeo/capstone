@@ -25,6 +25,7 @@ function ExamGradingAddStudentList({examId}){
 
         // Check if the entries has been checked
         for (const [name, value] of formData.entries()) {
+            // Gets only the Checkboxes that are on.
             if (name.startsWith("to_add_") && value === "on"){
                 // Strip the first part and get only the student ID
                 studentsToAdd.push(name.replace("to_add_", ""));
@@ -47,7 +48,7 @@ function ExamGradingAddStudentList({examId}){
         <div className="form-group col-md-4">
             <button 
                 className="btn btn-danger"
-                onClick={(e) => handleCancelButton(e)}>
+                onClick={(event) => handleCancelButton(event)}>
             Cancel
             </button>
             <button
