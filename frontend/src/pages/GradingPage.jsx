@@ -12,6 +12,7 @@ import GradingExamContextProvider from "../contexts/GradingExamContextProvider"
 import ExamGradingAddStudentList from "../components/ExamGradingAddStudentList";
 
 export const IsEditingGradingsContext = createContext();
+export const IsAddingStudentsContext = createContext();
 
 
 function GradingPage(){
@@ -19,6 +20,7 @@ function GradingPage(){
     // This comes from the URL (.../grading/1)
     const { id } = useParams();
     const [isEditingGradings, setIsEditingGradings] = useState(false);
+    const [isAddingStudentsToExam, setIsAddingStudentsToExam] = useState(false);
 
 
     return(

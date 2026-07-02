@@ -20,7 +20,7 @@ function ExamGradingAddStudentList({examId}){
         .then(data => {
             setStudentsData(data.student_data);
         })
-    })
+    },[])
 
     function handleCancelButton(event){
         event.preventDefault();
