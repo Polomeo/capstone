@@ -75,7 +75,7 @@ function AddExamForm() {
                         name="subject_select"
                         className="form-select" 
                         aria-label="Subject select dropdown">
-                        <option value="0" selected>Select the subject...</option>
+                        <option value="0">Select the subject...</option>
                         {(examData !== null) ? (examData.subjects.map((subject) => 
                             <option key={subject.id} value={subject.id}>{subject.name_short}</option>
                             )) : undefined}

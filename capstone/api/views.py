@@ -226,7 +226,6 @@ def students_to_add_to_exam(request, exam_id):
     return JsonResponse({'student_data' : student_data})
 
 
-
 @csrf_exempt
 def update_gradings(request):
     '''
