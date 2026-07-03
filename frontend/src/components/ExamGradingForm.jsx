@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // Components
 import StudentGradingForm from "./StudentGradingForm";
 import ExamGradingAddStudentsButton from "./ExamGradingAddStudentsButton";
+import ErrorsList from "./ErrorsList";
 
 // Contexts
 import { IsEditingGradingsContext } from "../pages/GradingPage";
@@ -99,6 +100,11 @@ function ExamGradingForm({ examId }){
                     {gradingData.map((examData) => (
                         <StudentGradingForm StudentGradingData={examData} key={examData.id} />
                     ))}
+                </div>
+                <div className="row">
+                    <div className="form-group col-md-6">
+                        { errors.length > 0 && ( <ErrorsList errorsList={errors} /> )}
+                    </div>
                 </div>
                 <div className="form-group col-md-2">
                     <button 
