@@ -225,6 +225,39 @@ def students_to_add_to_exam(request, exam_id):
 
     return JsonResponse({'student_data' : student_data})
 
+@csrf_exempt
+def add_students_to_exam(request):
+
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+    
+    data = json.loads(request.body)
+    exam_id = int(data.get("examId"))
+
+    errors = {}
+
+    for student_id in data.get("studentsToAdd"):
+        student_already_in_exam : bool = Grade.objects.filter(
+            exam__id=exam_id,
+            student__id=student_id).exists()
+        if student_already_in_exam:
+            errors[f'errAlreadyInExam_{student_id}'] = f"Student ID N° {student_id} is already in the exam."
+
+    if len(errors) > 0:
+        return JsonResponse({'errors' : errors})
+    else:
+        # Create iterable
+        exam = Exam.objects.get(id=exam_id)
+        students_to_add = []
+        for student in data.get("studentsToAdd"):
+            new_student = Grade(exam=exam, student=Student.objects.get(id=int(student)))
+            students_to_add.append(new_student)
+
+        # Add to database in bulk
+        Grade.objects.bulk_create(students_to_add)
+        
+        # Return response
+        return JsonResponse({'success' : 'Students added to exam.'}, status=201)
 
 @csrf_exempt
 def update_gradings(request):
@@ -323,5 +356,6 @@ def update_gradings(request):
         Grade.objects.bulk_update(update_bulk_gradings, ['grading'])
 
         return JsonResponse({"success" : "Grades updated successfully"})
+
 
 #endregion

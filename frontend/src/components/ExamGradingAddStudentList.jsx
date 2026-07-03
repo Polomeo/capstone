@@ -48,9 +48,29 @@ function ExamGradingAddStudentList({examId}){
             }
         };
 
-        // FETCH SAVE STUDENTS ADDED
-
         console.log(studentsToAdd);
+
+        // FETCH SAVE STUDENTS ADDED
+        // students_to_add
+        // exam_id
+        fetch(`http://localhost:8000/api/add_students_to_exam`, {
+            method: 'POST',
+            body: JSON.stringify({
+                examId : examId,
+                studentsToAdd : studentsToAdd,
+            })
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.errors){
+                console.log(response.errors);
+            }
+            else if (response.success){
+                console.log(response.success);
+            }
+        })
+        .catch(error => console.error('Error: ', error));
+
         setIsAddingStudentsToExam(false);
 
     }

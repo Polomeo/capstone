@@ -14,4 +14,5 @@ urlpatterns = [
     path('grading_info/<int:exam_id>', views.grading_info, name="grading_info"),
     path('students_exam_info/<int:exam_id>', views.students_to_add_to_exam, name="students_to_add"),
     path('update_gradings', views.update_gradings, name="update_gradings"),
+    path('add_students_to_exam', views.add_students_to_exam, name="add_students_to_exam"),
 ]
