@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 
 // Components
 import ExamGradingAddStudentForm from "./ExamGradingAddStudentForm";
+import ErrorsList from "./ErrorsList";
 
 // Contexts
 import { IsAddingStudentsContext } from "../pages/GradingPage";
@@ -10,6 +11,7 @@ function ExamGradingAddStudentList({examId}){
 
     const [isAddingStudentsToExam, setIsAddingStudentsToExam] = useContext(IsAddingStudentsContext);
     const [studentData, setStudentsData] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     // const studentData = [
     //     {'id': 1, 'student_full_name': "Potter, Harry", 'already_in_exam': false, 'already_approved': false},
@@ -64,6 +66,7 @@ function ExamGradingAddStudentList({examId}){
         .then(response => {
             if(response.errors){
                 console.log(response.errors);
+                setErrors(response.errors);
             }
             else if (response.success){
                 console.log(response.success);
@@ -86,6 +89,11 @@ function ExamGradingAddStudentList({examId}){
                     <ExamGradingAddStudentForm StudentData={student} key={student.id} />
                 ))}
             </div>
+            <div className="row">
+                    <div className="form-group col-md-6">
+                        { errors.length > 0 && ( <ErrorsList errorsList={errors} /> )}
+                    </div>
+                </div>
             <div className="form-group col-md-4">
                 <button 
                     className="btn btn-danger"
