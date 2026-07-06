@@ -1,6 +1,30 @@
 import { Link } from "react-router-dom"
 
 function ProfileAcademicHistoryList({ studentAcademicHistory }){
+    
+    // Colors for cells
+    // Subject course
+    function courseBg(subject_course){
+        switch(subject_course){
+            case 1:
+                return "danger";
+            case 2:
+                return "warning";
+            case 3:
+                return "success";
+        }
+    }
+
+    // Grading
+    function gradingBg(grading){
+        if(parseInt(grading) >= 4){
+            return "success";
+        }
+        else{
+            return "danger";
+        }
+    }
+    
     return (
         <div>
             <div>
@@ -20,9 +44,9 @@ function ProfileAcademicHistoryList({ studentAcademicHistory }){
                         <tbody>
                             {studentAcademicHistory.map((exam) =>
                                 <tr key={exam.id} value={exam.id}>
-                                    <td>{exam.subject_course}°</td>
+                                    <td className={`table-${courseBg(exam.subject_course)}`}>{exam.subject_course}°</td>
                                     <td><Link to={`/grading/${exam.exam_id}`}>{exam.subject_short}</Link></td>
-                                    <td>{exam.absent ? "Absent" : exam.exam_grading}</td>
+                                    <td className={`table-${exam.absent ? 'info' : gradingBg(exam.exam_grading)}`}>{exam.absent ? "Absent" : exam.exam_grading}</td>
                                     <td>{exam.exam_date}</td>
                                 </tr>
                             )}
