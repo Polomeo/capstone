@@ -15,4 +15,6 @@ urlpatterns = [
     path('students_exam_info/<int:exam_id>', views.students_to_add_to_exam, name="students_to_add"),
     path('update_gradings', views.update_gradings, name="update_gradings"),
     path('add_students_to_exam', views.add_students_to_exam, name="add_students_to_exam"),
+    # Profile
+    path('profile_info/<int:student_id>', views.profile_info, name="profile_info"),
 ]

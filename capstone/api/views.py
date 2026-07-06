@@ -357,5 +357,14 @@ def update_gradings(request):
 
         return JsonResponse({"success" : "Grades updated successfully"})
 
+#endregion
+
+#region PROFILE VIEWS
+def profile_info(request, student_id):
+    # Returns the student personal data
+    # Returns the exams the student attended
+    
+    return
+
 
 #endregion
