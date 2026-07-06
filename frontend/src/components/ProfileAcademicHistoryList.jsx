@@ -6,7 +6,7 @@ function ProfileAcademicHistoryList({ studentAcademicHistory }){
             <div>
                 <h4>Academic History</h4>
             </div>
-            <div className="students-table col-md-4">
+            <div className="students-table col-md-10">
                 <div className="table-responsive">
                     <table className="table table-hover align-middle">
                         <thead>

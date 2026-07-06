@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react"
 import { GradingExamContext } from "../contexts/GradingExamContextProvider"
+import { Link } from "react-router-dom";
 
 function ExamGradingList({ examId }){
     
@@ -18,7 +19,7 @@ function ExamGradingList({ examId }){
     }, [])
 
     return (
-        <div className="students-table col-md-4">
+        <div className="students-table col-md-6">
             <div className="table-responsive">
                 <table className="table table-hover align-middle">
                     <thead>
@@ -30,7 +31,7 @@ function ExamGradingList({ examId }){
                     <tbody>
                         {gradingData.map((grading) =>
                             <tr key={grading.id} value={grading.id}>
-                                <td>{grading.student_full_name}</td>
+                                <td><Link to={`/profile/${grading.student_id}`}>{grading.student_full_name}</Link></td>
                                 <td>{grading.absent ? "Absent" : grading.exam_grading}</td>
                             </tr>
                         )}
