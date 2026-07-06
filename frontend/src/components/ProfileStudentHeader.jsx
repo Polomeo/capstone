@@ -1,23 +1,33 @@
+import { useEffect, useState } from "react"
+
 function ProfileStudentHeader({ studentPersonalData }){
+
+    const [personalData, setPersonalData] = useState(studentPersonalData);
+
+    useEffect(() => {
+        console.log("Student data: ", studentPersonalData);
+    }, [])
+
     return (
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h3>{studentPersonalData.last_name}, {studentPersonalData.first_name}</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h6>Enroll year: {studentPersonalData.enroll_year}</h6>
-                </div>
-                <div class="col">
-                    <h6>Personal ID N°: {studentPersonalData.personal_id}</h6>
-                </div>
-                <div class="col">
-                    <h6>Enroll ID N°: {studentPersonalData.enroll_id}</h6>
-                </div>
-            </div>
-        </div>
+        // <div className="container">
+        //     <div className="row">
+        //         <div className="col">
+        //             <h3>{personalData.last_name}, {personalData.first_name}</h3>
+        //         </div>
+        //     </div>
+        //     <div className="row">
+        //         <div className="col">
+        //             <h6>Enroll year: {personalData.enroll_year}</h6>
+        //         </div>
+        //         <div className="col">
+        //             <h6>Personal ID N°: {personalData.personal_id}</h6>
+        //         </div>
+        //         <div className="col">
+        //             <h6>Enroll ID N°: {personalData.enroll_id}</h6>
+        //         </div>
+        //     </div>
+        // </div>
+        <>Test</>
     )
 }
 
