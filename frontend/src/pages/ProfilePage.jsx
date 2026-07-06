@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import ProfileAcademicHistoryList from "../components/ProfileAcademicHistoryList";
+import ProfileStudentHeader from "../components/ProfileStudentHeader";
 
 function ProfilePage(){
     
@@ -43,7 +44,9 @@ function ProfilePage(){
     
     return (
         <div className="container">
-            Profile page for Student ID: {id}
+            <div>
+                <ProfileStudentHeader studentPersonalData={studentPersonalData} />
+            </div>
             <div>
                 <ProfileAcademicHistoryList studentAcademicHistory={studentAcademicHistory} />
             </div>
