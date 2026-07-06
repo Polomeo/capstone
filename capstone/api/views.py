@@ -367,11 +367,6 @@ def profile_info(request, student_id):
     # Returns the exams the student attended
     grades = Grade.objects.filter(student=student).order_by('-exam__subject__course','-exam__date','exam__subject__name_short')
 
-    # data = {
-    #     'student_personal_info' : student.serialize(),
-    #     'student_academic_history' : [grade.serialize() for grade in grades]
-    # }
-
     return JsonResponse({'student_personal_info' : student.serialize(), 'student_academic_history': [grade.serialize() for grade in grades]})
 
 #endregion

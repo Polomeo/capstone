@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 function ProfileAcademicHistoryList({ studentAcademicHistory }){
     return (
         <div>
@@ -18,8 +20,8 @@ function ProfileAcademicHistoryList({ studentAcademicHistory }){
                         <tbody>
                             {studentAcademicHistory.map((exam) =>
                                 <tr key={exam.id} value={exam.id}>
-                                    <td>{exam.subject_year}°</td>
-                                    <td>{exam.subject_short}</td>
+                                    <td>{exam.subject_course}°</td>
+                                    <td><Link to={`/grading/${exam.exam_id}`}>{exam.subject_short}</Link></td>
                                     <td>{exam.absent ? "Absent" : exam.exam_grading}</td>
                                     <td>{exam.exam_date}</td>
                                 </tr>

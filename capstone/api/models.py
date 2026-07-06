@@ -74,6 +74,7 @@ class Grade(models.Model):
         return {
             'id': self.id,
             'subject_id' : self.exam.subject.id,
+            'subject_course' : self.exam.subject.course,
             'subject_short' : self.exam.subject.name_short,
             'student_id' : self.student.id,
             'student_full_name' : f'{self.student.last_name}, {self.student.first_name}',
