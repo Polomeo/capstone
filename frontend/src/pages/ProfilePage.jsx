@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import ProfileAcademicHistoryList from "../components/ProfileAcademicHistoryList";
 
 function ProfilePage(){
     
@@ -38,12 +39,14 @@ function ProfilePage(){
             'absent' : false, 
             'exam_date' : '2026-04-02',
         },
-
     ]
     
     return (
         <div className="container">
             Profile page for Student ID: {id}
+            <div>
+                <ProfileAcademicHistoryList studentAcademicHistory={studentAcademicHistory} />
+            </div>
         </div>
     )
 }
