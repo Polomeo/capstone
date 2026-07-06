@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { SearchContext } from "../pages/StudentsPage";
 import { StudentsContext } from "../contexts/StudentsContextProvider";
@@ -40,7 +41,7 @@ function StudentsTable() {
                             ) &&
                             (<tr key={student.id} value={student.id}>
                                 <th scope="row">{student.enroll_year}</th>
-                                <td>{student.last_name}, {student.first_name}</td>
+                                <td><Link to={`/profile/${student.id}`}>{student.last_name}, {student.first_name}</Link></td>
                                 <td>{student.personal_id}</td>
                                 <td>10/10</td>
                                 <td>4/12</td>
