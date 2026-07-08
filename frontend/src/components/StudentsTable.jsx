@@ -17,8 +17,8 @@ function StudentsTable() {
             setStudents(data.students);
             setSubjectsPerCourse(data.subjects_per_course);
             // console.log("DEBUG: Students Table Refreshed");
-            console.log(data.students);
-            console.log(data.subjects_per_course);
+            // console.log(data.students);
+            // console.log(data.subjects_per_course);
         })
         .catch(error => console.error('Error.', error));
     }, []); // Updates only on mount
