@@ -18,6 +18,15 @@ function ExamGradingList({ examId }){
         .catch(error => console.error('Error: ', error));
     }, [])
 
+    function gradingBg(grading){
+        if(parseInt(grading) >= 4){
+            return "success";
+        }
+        else{
+            return "danger";
+        }
+    }
+
     return (
         <div className="students-table col-md-6">
             <div className="table-responsive">
@@ -32,7 +41,7 @@ function ExamGradingList({ examId }){
                         {gradingData.map((grading) =>
                             <tr key={grading.id} value={grading.id}>
                                 <td><Link to={`/profile/${grading.student_id}`}>{grading.student_full_name}</Link></td>
-                                <td>{grading.absent ? "Absent" : grading.exam_grading}</td>
+                                <td className={`text-center table-${grading.absent ? 'info' : gradingBg(grading.exam_grading)}`}>{grading.absent ? "Absent" : grading.exam_grading}</td>
                             </tr>
                         )}
                     </tbody>
