@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, date
+from django.db.models import Count, Q
 from django.http import JsonResponse
 # from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -8,9 +9,63 @@ from .models import Student, Subject, Exam, Grade
 
 #region STUDENT VIEWS
 def students(request):
-    students = Student.objects.all().order_by('last_name')
+    # Sends the student info and the total subjects approved per course
+    APPROVING_MARK : int = 4
 
-    return JsonResponse({"students" : [student.serialize() for student in students]})
+    # Gets the total courses per year
+    subjects_per_course = {
+        courses['course'] : courses['total'] for courses in Subject.objects.values('course').annotate(total=Count('id'))
+    }
+
+    # Gets all the students
+    # and the subject each approved per year
+    students = Student.objects.all().annotate(
+        approved_1 = Count(
+            'grades',
+            filter=Q(
+                grades__exam__subject__course = 1,          # First course subjects
+                grades__grading__gte = APPROVING_MARK,      # Approved
+                grades__absent = False                      # Not absent
+            ), distinct= True                               # Counts only different subjects
+        ),
+        approved_2 = Count(
+            'grades',
+            filter=Q(
+                grades__exam__subject__course = 2,
+                grades__grading__gte = APPROVING_MARK,
+                grades__absent = False
+            ), distinct= True
+        ),
+        approved_3 = Count(
+            'grades',
+            filter=Q(
+                grades__exam__subject__course = 3,
+                grades__grading__gte = APPROVING_MARK,
+                grades__absent = False
+            ), distinct= True
+        ),
+    ).order_by('last_name', 'first_name')
+
+    # Compile the information
+    student_with_grades = []
+
+    for student in students:
+        data = student.serialize()
+
+        # Add the approved per course
+        data['approved_per_course'] = {
+            "1" : student.approved_1,
+            "2" : student.approved_2,
+            "3" : student.approved_3,
+        }
+
+        # Append to the list with the approved added
+        student_with_grades.append(data)
+
+    return JsonResponse({
+        "subjects_per_course" : subjects_per_course,
+        "students" : student_with_grades
+        })
 
 @csrf_exempt
 def add_student(request):

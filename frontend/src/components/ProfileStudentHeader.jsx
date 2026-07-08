@@ -4,10 +4,6 @@ function ProfileStudentHeader({ studentPersonalData }){
 
     const [personalData, setPersonalData] = useState(studentPersonalData);
 
-    useEffect(() => {
-        console.log("Student data: ", studentPersonalData);
-    }, [])
-
     return (
         <div className="container">
             <div className="row">

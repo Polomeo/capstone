@@ -15,7 +15,8 @@ function ProfileAcademicHistoryList({ studentAcademicHistory }){
         }
     }
 
-    // Grading
+    // Grading (approved = green / not approved = red)
+    // BUG: This approving grade is hardcoded.
     function gradingBg(grading){
         if(parseInt(grading) >= 4){
             return "success";
@@ -44,10 +45,10 @@ function ProfileAcademicHistoryList({ studentAcademicHistory }){
                         <tbody>
                             {studentAcademicHistory.map((exam) =>
                                 <tr key={exam.id} value={exam.id}>
-                                    <td className={`table-${courseBg(exam.subject_course)}`}>{exam.subject_course}°</td>
+                                    <td className={`text-center table-${courseBg(exam.subject_course)}`}>{exam.subject_course}°</td>
                                     <td><Link to={`/grading/${exam.exam_id}`}>{exam.subject_short}</Link></td>
-                                    <td className={`table-${exam.absent ? 'info' : gradingBg(exam.exam_grading)}`}>{exam.absent ? "Absent" : exam.exam_grading}</td>
-                                    <td>{exam.exam_date}</td>
+                                    <td className={`text-center table-${exam.absent ? 'info' : gradingBg(exam.exam_grading)}`}>{exam.absent ? "Absent" : exam.exam_grading}</td>
+                                    <td className="text-center">{exam.exam_date}</td>
                                 </tr>
                             )}
                         </tbody>
