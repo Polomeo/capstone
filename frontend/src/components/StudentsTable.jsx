@@ -6,6 +6,7 @@ import { StudentsContext } from "../contexts/StudentsContextProvider";
 
 function StudentsTable() {
      const [students, setStudents] = useContext(StudentsContext);
+     const [subjectsPerCourse, setSubjectsPerCourse] = useState({});
      const [searchQuery, setSearchQuery] = useContext(SearchContext);
     
     // Fetching the students
@@ -14,7 +15,10 @@ function StudentsTable() {
         .then(res => res.json())
         .then(data => {
             setStudents(data.students);
+            setSubjectsPerCourse(data.subjects_per_course);
             // console.log("DEBUG: Students Table Refreshed");
+            console.log(data.students);
+            console.log(data.subjects_per_course);
         })
         .catch(error => console.error('Error.', error));
     }, []); // Updates only on mount
@@ -43,9 +47,9 @@ function StudentsTable() {
                                 <th scope="row">{student.enroll_year}</th>
                                 <td><Link to={`/profile/${student.id}`}>{student.last_name}, {student.first_name}</Link></td>
                                 <td>{student.personal_id}</td>
-                                <td>10/10</td>
-                                <td>4/12</td>
-                                <td>0/9</td>
+                                <td>{student.approved_per_course.c1}/{(subjectsPerCourse) && subjectsPerCourse["1"]}</td>
+                                <td>{student.approved_per_course.c2}/{(subjectsPerCourse) && subjectsPerCourse["2"]}</td>
+                                <td>{student.approved_per_course.c3}/{(subjectsPerCourse) && subjectsPerCourse["3"]}</td>
                             </tr>)
                         )}
                     </tbody>

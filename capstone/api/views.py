@@ -54,9 +54,9 @@ def students(request):
 
         # Add the approved per course
         data['approved_per_course'] = {
-            "1" : student.approved_1,
-            "2" : student.approved_2,
-            "3" : student.approved_3,
+            "c1" : student.approved_1,
+            "c2" : student.approved_2,
+            "c3" : student.approved_3,
         }
 
         # Append to the list with the approved added
