@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, date
+from django.contrib.auth import authenticate, login
 from django.db.models import Count, Q
 from django.http import JsonResponse
 # from django.shortcuts import render
@@ -21,6 +22,26 @@ def api_login_required(view_function):
         return view_function(request, *args, **kwargs)
     return _wrapped_view # Returns the function wrapped, inserting this code above.
 
+def api_login_view(request):
+    if request.method == 'POST':
+
+        # Get the data
+        data = json.loads(request.body)
+        username = data.get('username')
+        password = data.get('password')
+
+        # Try to authenticate
+        user = authenticate(request, username=username, password=password)
+
+        # Check if authenticated
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success' : 'User logged in.'})
+        else:
+            return JsonResponse({'error' : 'Invalid username or password.'}, status = 400)
+    
+    # If not POST request
+    return JsonResponse({'error' : 'POST request is required.'}) 
 
 #endregion
 
