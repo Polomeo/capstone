@@ -3,6 +3,9 @@ from . import views
 
 # API/ Routes
 urlpatterns = [
+    # Auth
+    path('login_status', views.api_user_is_logged_in, name='is_logged_in'),
+    path('login', views.api_login_view, name="login"),
     # Students
     path('students', views.students, name="students"),
     path('add_student', views.add_student, name="add_student"),

@@ -1,4 +1,5 @@
 function LoginPage(){
+    
     function handleLogin(event){
         event.preventDefault();
         console.log('Log in button pressed')

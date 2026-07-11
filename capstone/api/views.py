@@ -22,6 +22,7 @@ def api_login_required(view_function):
         return view_function(request, *args, **kwargs)
     return _wrapped_view # Returns the function wrapped, inserting this code above.
 
+# Tries to authenticate user
 def api_login_view(request):
     if request.method == 'POST':
 
@@ -41,7 +42,13 @@ def api_login_view(request):
             return JsonResponse({'error' : 'Invalid username or password.'}, status = 400)
     
     # If not POST request
-    return JsonResponse({'error' : 'POST request is required.'}) 
+    return JsonResponse({'error' : 'POST request is required.'})
+
+# Checks if the user is authenticated
+def api_user_is_logged_in(request):
+    if request.user.is_authenticated:
+        return JsonResponse({'authenticated' : True})
+    return JsonResponse({'authenticated' : False}, status = 401)
 
 #endregion
 
