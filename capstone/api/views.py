@@ -209,8 +209,20 @@ def add_student(request):
 #region EXAMS VIEWS
 @api_login_required
 def exams(request):
-    exams = Exam.objects.all().order_by('-date')
-    return JsonResponse({"exams" : [exam.serialize() for exam in exams]})
+    # Get the exam and the student that took that exam
+    exams = Exam.objects.all().annotate(
+        total_examined = Count('grades')
+    ).order_by('-date')
+
+    # Compile the exam data
+    exam_data = []
+    for exam in exams:
+        data = exam.serialize()
+        data['total_examined'] = exam.total_examined
+        exam_data.append(data)
+
+    # return JsonResponse({"exams" : [exam.serialize() for exam in exams]})
+    return JsonResponse({"exams" : exam_data})
 
 @api_login_required
 def create_exam_form_info(request):

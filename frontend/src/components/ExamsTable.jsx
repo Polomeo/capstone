@@ -63,7 +63,7 @@ function ExamsTable(){
                                     <th scope="row">{exam.subject_course}°</th>
                                     <td><Link to={`/grading/${exam.id}`}>{exam.subject_short}</Link></td>
                                     <td>{exam.date}</td>
-                                    <td>20</td>
+                                    <td>{exam.total_examined}</td>
                                     <td><Link to={`/grading/${exam.id}`}>👁</Link></td>
                                 </tr>
                             )

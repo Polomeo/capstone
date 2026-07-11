@@ -47,12 +47,14 @@ function ExamGradingList({ examId }){
                         </tr>
                     </thead>
                     <tbody>
-                        {gradingData.map((grading) =>
+                        {(gradingData.length > 0) ? 
+                        gradingData.map((grading) =>
                             <tr key={grading.id} value={grading.id}>
                                 <td><Link to={`/profile/${grading.student_id}`}>{grading.student_full_name}</Link></td>
                                 <td className={`text-center table-${grading.absent ? 'info' : gradingBg(grading.exam_grading)}`}>{grading.absent ? "Absent" : grading.exam_grading}</td>
                             </tr>
-                        )}
+                        ) : 
+                        <div>No student added to this exam yet. Got to "Edit Gradings" and add some.</div>}
                     </tbody>
                 </table>
             </div>

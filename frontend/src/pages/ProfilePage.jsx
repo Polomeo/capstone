@@ -33,7 +33,9 @@ function ProfilePage(){
                 {(studentPersonalInfo) && <ProfileStudentHeader studentPersonalData={studentPersonalInfo} />}
             </div>
             <div>
-                {(studentAcademicHistory) && <ProfileAcademicHistoryList studentAcademicHistory={studentAcademicHistory} />}
+                {(studentAcademicHistory.length) > 0 
+                    ? <ProfileAcademicHistoryList studentAcademicHistory={studentAcademicHistory} />
+                : <div>No exams registered for this student yet.</div>}
             </div>
         </div>
     )

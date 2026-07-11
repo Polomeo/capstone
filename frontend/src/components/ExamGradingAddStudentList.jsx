@@ -13,13 +13,6 @@ function ExamGradingAddStudentList({examId}){
     const [studentData, setStudentsData] = useState([]);
     const [errors, setErrors] = useState([]);
 
-    // const studentData = [
-    //     {'id': 1, 'student_full_name': "Potter, Harry", 'already_in_exam': false, 'already_approved': false},
-    //     {'id': 2, 'student_full_name': "Weasley, Charlie", 'already_in_exam': true, 'already_approved': true},
-    //     {'id': 3, 'student_full_name': "Dumbledore, Albus", 'already_in_exam': false, 'already_approved': true},
-    //     {'id': 8, 'student_full_name': "Abbot, Anna", 'already_in_exam': false, 'already_approved': false},
-    // ]
-
     useEffect(() => {
         fetch(`http://localhost:8000/api/students_exam_info/${examId}`, {
             method: 'GET',
