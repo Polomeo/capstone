@@ -27,7 +27,7 @@ function NavBar({ isAuthenticated, setIsAuthenticated }) {
         <nav className='navbar navbar-expand bg-body-tertiary'>
             <div className="container-fluid">
                 <div className='navbar-brand'>
-                    <Link to='/'>School Manager</Link>
+                    <Link to='/'>Hogwarts School Manager</Link>
                 </div>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
