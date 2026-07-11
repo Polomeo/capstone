@@ -11,14 +11,19 @@ function StudentsTable() {
     
     // Fetching the students
     useEffect(() => {
-        fetch('http://localhost:8000/api/students')
-        .then(res => res.json())
+        fetch('http://localhost:8000/api/students', {
+            method: 'GET',
+            credentials: 'include', // sends the credential token to verify login status
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+            }
+            res.json()
+        })
         .then(data => {
             setStudents(data.students);
             setSubjectsPerCourse(data.subjects_per_course);
-            // console.log("DEBUG: Students Table Refreshed");
-            // console.log(data.students);
-            // console.log(data.subjects_per_course);
         })
         .catch(error => console.error('Error.', error));
     }, []); // Updates only on mount

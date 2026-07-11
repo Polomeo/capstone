@@ -52,9 +52,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Allows request from frontend server
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
 ]
+
+# Allows cookies between servers
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'capstone.urls'
 

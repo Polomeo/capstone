@@ -4,10 +4,28 @@ from django.db.models import Count, Q
 from django.http import JsonResponse
 # from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from functools import wraps
 
 from .models import Student, Subject, Exam, Grade
 
+#region AUTH VIEWS
+
+# Login required custom decorator
+### Used to send a custom JsonResponse instead of the
+### redirect that @login_required uses
+def api_login_required(view_function):
+    @wraps(view_function)   # wraps the function we specify
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return JsonResponse({'error' : 'User not logged in.'}, status= 401)
+        return view_function(request, *args, **kwargs)
+    return _wrapped_view # Returns the function wrapped, inserting this code above.
+
+
+#endregion
+
 #region STUDENT VIEWS
+@api_login_required
 def students(request):
     # Sends the student info and the total subjects approved per course
     APPROVING_MARK : int = 4
