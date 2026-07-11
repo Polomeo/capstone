@@ -1,4 +1,9 @@
+import { useState } from "react";
+import ErrorsList from "../components/ErrorsList";
+
 function LoginPage(){
+
+    const [errors, setErrors] = useState([]);
     
     function handleLogin(event){
         event.preventDefault();
@@ -25,6 +30,9 @@ function LoginPage(){
             else if (response.error){
                 console.log("Incorrect credentials.")
                 // Show error in page
+                let errors = []
+                errors.push(response.error)
+                setErrors(errors);
             }
         })
 
@@ -44,6 +52,11 @@ function LoginPage(){
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="password" className="form-control" name="password" id="password" />
                 </div>
+                {(errors.length > 0) && 
+                    <div>
+                        <ErrorsList errorsList={errors} />
+                    </div>
+                }
                 <div className="mb-3">
                     <button 
                         type="submit"

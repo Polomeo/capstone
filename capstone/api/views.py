@@ -40,7 +40,7 @@ def api_login_view(request):
             login(request, user)
             return JsonResponse({'success' : 'User logged in.'}, status= 201)
         else:
-            return JsonResponse({'error' : 'Invalid username or password.'}, status = 400)
+            return JsonResponse({'error' : 'Invalid username or password.'}, status = 401)
     
     # If not POST request
     return JsonResponse({'error' : 'POST request is required.'})
