@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ErrorsList from "../components/ErrorsList";
 
 function LoginPage(){
 
     const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
     
     function handleLogin(event){
         event.preventDefault();
@@ -26,12 +28,14 @@ function LoginPage(){
             if(response.success){
                 console.log("User logged in successfully.")
                 // Redirect to Students page
+                navigate('/', { replace : true });
+
             }
             else if (response.error){
-                console.log("Incorrect credentials.")
+                console.log("Incorrect credentials.");
                 // Show error in page
-                let errors = []
-                errors.push(response.error)
+                let errors = [];
+                errors.push(response.error);
                 setErrors(errors);
             }
         })

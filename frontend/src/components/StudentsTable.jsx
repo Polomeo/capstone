@@ -18,8 +18,9 @@ function StudentsTable() {
         .then(res => {
             if(res.status === 401) {
                 console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
             }
-            res.json()
+            return res.json()
         })
         .then(data => {
             setStudents(data.students);

@@ -1,6 +1,6 @@
 import json
 from datetime import datetime, date
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.db.models import Count, Q
 from django.http import JsonResponse
 # from django.shortcuts import render
@@ -50,6 +50,11 @@ def api_user_is_logged_in(request):
     if request.user.is_authenticated:
         return JsonResponse({'authenticated' : True}, status = 200)
     return JsonResponse({'authenticated' : False}, status = 401)
+
+# Logout
+def api_logout(request):
+    logout(request)
+    return JsonResponse({'success' : 'Logged out.'}, status = 201)
 
 #endregion
 

@@ -6,6 +6,7 @@ urlpatterns = [
     # Auth
     path('login_status', views.api_user_is_logged_in, name='is_logged_in'),
     path('login', views.api_login_view, name="login"),
+    path('logout', views.api_logout, name="logout"),
     # Students
     path('students', views.students, name="students"),
     path('add_student', views.add_student, name="add_student"),
