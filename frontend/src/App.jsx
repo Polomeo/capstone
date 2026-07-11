@@ -34,6 +34,7 @@ function App() {
       <main className='main-container'>
         <Routes>
             <Route path="/login" element={<LoginPage />} />
+            {/* This routes require login */}
             <Route element={<AuthLoggedInRoutes isAuthenticated={isAuthenticated} loginPage='/login'/>}>
               <Route path="/exams" element={<ExamsPage />} />
               <Route path="/grading/:id" element={<GradingPage />} />

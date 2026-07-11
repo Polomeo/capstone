@@ -10,8 +10,17 @@ function ProfilePage(){
     const [studentAcademicHistory, setStudentAcademicHistory] = useState([]);
 
     useEffect(() =>{
-        fetch(`http://localhost:8000/api/profile_info/${id}`)
-        .then(res => res.json())
+        fetch(`http://localhost:8000/api/profile_info/${id}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(data => {
             setStudentPersonalInfo(data.student_personal_info);
             setStudentAcademicHistory(data.student_academic_history);

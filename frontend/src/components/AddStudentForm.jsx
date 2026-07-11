@@ -21,6 +21,7 @@ function AddStudentForm() {
         // Call the API and send the student
         fetch(`http://localhost:8000/api/add_student`, {
             method: 'POST',
+            credentiasl : 'include',
             body: JSON.stringify({
                 lastName : formData.get("last_name"),
                 firstName : formData.get("first_name"),
@@ -30,7 +31,13 @@ function AddStudentForm() {
             }),
             cache: 'reload',
         })
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(response => {
             if(response.errors){
                 

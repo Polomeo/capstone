@@ -12,8 +12,17 @@ function AddExamForm() {
     
     // Load the form configuration
     useEffect(() => {
-        fetch('http://localhost:8000/api/create_exam_form_info')
-        .then(res => res.json())
+        fetch('http://localhost:8000/api/create_exam_form_info', {
+            method: 'GET',
+            credentials: 'include',
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(data => {
             setExamData(data);
             console.log(data);

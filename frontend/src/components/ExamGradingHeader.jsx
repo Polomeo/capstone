@@ -7,8 +7,17 @@ function ExamGradingHeader({ examId }){
 
     // Fetch the data
     useEffect(() => {
-        fetch(`http://localhost:8000/api/grading_info/${examId}`)
-        .then(res => res.json())
+        fetch(`http://localhost:8000/api/grading_info/${examId}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(data => {
             setExamData(data.exam_data);
             // console.log(data.exam_data);

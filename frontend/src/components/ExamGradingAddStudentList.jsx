@@ -21,8 +21,17 @@ function ExamGradingAddStudentList({examId}){
     // ]
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/students_exam_info/${examId}`)
-        .then(res => res.json())
+        fetch(`http://localhost:8000/api/students_exam_info/${examId}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(data => {
             setStudentsData(data.student_data);
         })
@@ -57,12 +66,19 @@ function ExamGradingAddStudentList({examId}){
         // exam_id
         fetch(`http://localhost:8000/api/add_students_to_exam`, {
             method: 'POST',
+            credentials : 'include',
             body: JSON.stringify({
                 examId : examId,
                 studentsToAdd : studentsToAdd,
             })
         })
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(response => {
             if(response.errors){
                 console.log(response.errors);

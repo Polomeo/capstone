@@ -10,8 +10,17 @@ function ExamsTable(){
 
     // Fetching the exams
     useEffect(() => {
-        fetch('http://localhost:8000/api/exams')
-        .then(res => res.json())
+        fetch('http://localhost:8000/api/exams', {
+            method: 'GET',
+            credentials: 'include',
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(data => {
             setExams(data.exams);
             // console.log("DEBUG: Students Table Refreshed");
