@@ -47,7 +47,7 @@ def api_login_view(request):
 # Checks if the user is authenticated
 def api_user_is_logged_in(request):
     if request.user.is_authenticated:
-        return JsonResponse({'authenticated' : True})
+        return JsonResponse({'authenticated' : True}, status = 200)
     return JsonResponse({'authenticated' : False}, status = 401)
 
 #endregion
