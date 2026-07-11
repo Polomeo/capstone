@@ -51,11 +51,11 @@ function LoginPage({ setIsAuthenticated }){
             >
                 <div className="mb-3">
                     <label htmlFor="usernameInput" className="form-label">Username</label>
-                    <input type="text" className="form-control" name="username" id="usernameInput" />
+                    <input type="text" className="form-control" name="username" id="usernameInput" autoComplete="on" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" name="password" id="password" />
+                    <input type="password" className="form-control" name="password" id="password" autoComplete="on" />
                 </div>
                 {(errors.length > 0) && 
                     <div>
