@@ -23,6 +23,7 @@ def api_login_required(view_function):
     return _wrapped_view # Returns the function wrapped, inserting this code above.
 
 # Tries to authenticate user
+@csrf_exempt
 def api_login_view(request):
     if request.method == 'POST':
 
@@ -37,7 +38,7 @@ def api_login_view(request):
         # Check if authenticated
         if user is not None:
             login(request, user)
-            return JsonResponse({'success' : 'User logged in.'})
+            return JsonResponse({'success' : 'User logged in.'}, status= 201)
         else:
             return JsonResponse({'error' : 'Invalid username or password.'}, status = 400)
     
