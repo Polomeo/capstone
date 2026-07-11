@@ -1,8 +1,27 @@
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 
-function NavBar() {
+function NavBar({ isAuthenticated, setIsAuthenticated }) {
 
     const location = useLocation();
+    const navigate = useNavigate();
+
+    function handleLogout(){
+        fetch('http://localhost:8000/api/logout', {
+            method: 'POST',
+            credentials: 'include',
+        })
+        .then(res => {
+            if(res.ok){
+                console.log('User logged out.');
+                setIsAuthenticated(false);
+                navigate('/login', {replace: true});
+            }
+            else {
+                console.log('Error loggin out.')
+            }
+        })
+        .catch(error => console.log('Error: ', error));
+    }
 
     return (
         <nav className='navbar navbar-expand bg-body-tertiary'>
@@ -19,6 +38,9 @@ function NavBar() {
                             <Link to='/exams' className={"nav-link" + ((location.pathname == '/exams') ? " active" : "")}>Exams</Link>
                         </li>
                     </ul>
+                    {(isAuthenticated) && (
+                        <button onClick={handleLogout} className='btn btn-danger btn-sm'>Logout</button>
+                    )}
                 </div>
             </div>
         </nav>

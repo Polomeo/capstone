@@ -30,10 +30,10 @@ function App() {
 
   return (
     <div>
-      <NavBar />
+      <NavBar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <main className='main-container'>
         <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated} />} />
             {/* This routes require login */}
             <Route element={<AuthLoggedInRoutes isAuthenticated={isAuthenticated} loginPage='/login'/>}>
               <Route path="/exams" element={<ExamsPage />} />

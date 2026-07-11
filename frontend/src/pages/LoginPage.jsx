@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorsList from "../components/ErrorsList";
 
-function LoginPage(){
+function LoginPage({ setIsAuthenticated }){
 
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
@@ -27,6 +27,7 @@ function LoginPage(){
         .then(response => {
             if(response.success){
                 console.log("User logged in successfully.")
+                setIsAuthenticated(true);
                 // Redirect to Students page
                 navigate('/', { replace : true });
 

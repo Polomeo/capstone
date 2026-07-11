@@ -73,10 +73,17 @@ function ExamGradingForm({ examId }){
         // Send the data to API
         fetch(`http://localhost:8000/api/update_gradings`, {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify(updatedGradingData),
             cache: 'reload',
         })
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(response => {
             if(response.errors){
                 // Add them to error state

@@ -52,7 +52,11 @@ def api_user_is_logged_in(request):
     return JsonResponse({'authenticated' : False}, status = 401)
 
 # Logout
+@csrf_exempt
+@api_login_required
 def api_logout(request):
+    if request.method != 'POST':
+        return JsonResponse({'error' : 'POST method required.'})
     logout(request)
     return JsonResponse({'success' : 'Logged out.'}, status = 201)
 
@@ -120,6 +124,7 @@ def students(request):
         })
 
 @csrf_exempt
+@api_login_required
 def add_student(request):
 
     # Constants for validation
@@ -202,10 +207,12 @@ def add_student(request):
 #endregion
 
 #region EXAMS VIEWS
+@api_login_required
 def exams(request):
     exams = Exam.objects.all().order_by('-date')
     return JsonResponse({"exams" : [exam.serialize() for exam in exams]})
 
+@api_login_required
 def create_exam_form_info(request):
     # Const for validation
     current_year = datetime.today().year
@@ -227,6 +234,7 @@ def create_exam_form_info(request):
         return JsonResponse(exams_info)
 
 @csrf_exempt
+@api_login_required
 def add_exam(request):
     current_year = datetime.today().year
 
@@ -282,6 +290,7 @@ def add_exam(request):
 #endregion
 
 #region GRADING VIEWS
+@api_login_required
 def grading_info(request, exam_id):
 
     # Get exam and grading data
@@ -290,6 +299,7 @@ def grading_info(request, exam_id):
 
     return JsonResponse({"exam_data" : exam.serialize(), "grading_data" : [grade.serialize() for grade in gradings]})
 
+@api_login_required
 def students_to_add_to_exam(request, exam_id):
 
     APPROVING_MARK : int = 4 # Minimal mark to approve the exam (this could be in a config file)
@@ -333,6 +343,7 @@ def students_to_add_to_exam(request, exam_id):
     return JsonResponse({'student_data' : student_data})
 
 @csrf_exempt
+@api_login_required
 def add_students_to_exam(request):
 
     if request.method != 'POST':
@@ -367,6 +378,7 @@ def add_students_to_exam(request):
         return JsonResponse({'success' : 'Students added to exam.'}, status=201)
 
 @csrf_exempt
+@api_login_required
 def update_gradings(request):
     '''
     Checks if Gradings data is valid and updates de Database
@@ -467,6 +479,7 @@ def update_gradings(request):
 #endregion
 
 #region PROFILE VIEWS
+@api_login_required
 def profile_info(request, student_id):
     # Returns the student personal data
     student = Student.objects.get(id=student_id)
