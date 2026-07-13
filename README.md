@@ -1,59 +1,25 @@
-# capstone
-CS50 Capstone Project
+# **`School Management System (Capstone Project - CS50w)`**
+A mobile-responsive web system that helps school management staff to keep track of students grades and passed exams.
 
-# Technologies
-I used Django for the backend with API routes, and handle the front-end with React JavaScript Framework. This decoupling approach allows to an easier further mantenaice and grow. For the visual I used Bootstrap.
+## Technologies used
++ Django *(backend for API routes and database)*
++ React *(frontend)*
++ Bootstrap *(CSS styles)*
 
-# Running the project
-- The computer must have Node.js installed.
-- Clone this repository
-- In the main folder, use ```pip install -r requirements.txt ``` to install Python dependencies
-- In the 'frontend' folder, use ```npm install``` to install React dependencies
-- Navigate to 'capstone' folder and run ```python manage.py runserver```
-- In another terminal, navigate to 'frontend' folder and run ```npm run dev```
-- Visit ```http://localhost:5173/``` (where :5173 is the port used by Vite server)
+## Running the project
+- The computer must have [Node.js](https://nodejs.org/es/download) installed.
+- Clone this repository to your local machine.
+- In the **main folder**, use ```pip install -r requirements.txt ``` to install Python dependencies.
+- Navigate to **frontend** folder, use ```npm install``` to install **React dependencies**
+- Navigate to **capstone** folder and run ```python manage.py runserver``` to start the backend server.
+- Open other terminal, navigate to **frontend** folder and run ```npm run dev``` to start React frontend server.
+- Visit ```http://localhost:5173/``` (where *:5173* is the port used by the fronend server [*default*]).
 
-# Initial Setup
+## Distinctiveness and Complexity
+This project uses the technologies learned from CS50w Course to create a solution to teachers and school management staff, helping them keep track of students academic history.
 
-## Django Setup
-- Created folder '5/capstone'
-- Created Virtual Environment 'venv'
-- Installed Django on 'capstone' folder
-- Started project 'capstone'
-- Started app 'api' and added to INSTALLED_APPS
-- Added 'api.urls' to urls.py
-- Created "Students" model, and migrated
-- Created 'students' view and url
-- Tested Django on URL 127.0.0.1/api/students
+It provides the user an integrated view of current students' academic history, and allows to add students, add exams, and set grades. It also let the user enter each student profile to have a glance at that particular student's history of examinations.
 
-## React Setup
-- Installed React on '5/capstone' using npm create vite@latest
-- Created React instalation in '5/capstone/frontend'
-- Used npm install in '5/capstone/frontend' to install dependencies
-- Tested App using npm run dev on http://localhost:5173/
+It uses a Python Django backend that serves an API, and a JavaScript React frontend that consumes such API. It has a relational database model that links students and exams to subjects and grades. The API delivers ready-to-use JSON responses to the frontend, and the requests it recives are validated in the backend before any modification to the database.
 
-## Integration
-The folder structure at this point is:
-
-```
-5
-|- capstone
--- |- capstone
--- |- |- api
--- |- |- capstone
--- |- |- manage.py
--- |- frontend
--- |- |- src
--- |- |- |- App.jsx
--- |- venv
--- |- README.md
--- |- .gitignore
-```
-
-- Installed django-cors-headers for allowing communication
-- Added 'corsheaders' to INSTALLED_APPS = []
-- Added 'corsheaders.middleware.CorsMiddleware' to MIDDLEWARE = []
-- Added 'http://localhost:5173' to CORS_ALLOWED_ORIGINS = []
-
-## Testing
-- Created a simple list of students in App.jsx that consumes 127.0.0.1:8000/api/students
+The application uses several designing patterns viewed in previous projects of this course ([Commerce](https://github.com/Polomeo/commerce), [Mail](https://github.com/Polomeo/mail), [Network](https://github.com/Polomeo/network)) as a basis to create a new solution for this school managment scenario.
