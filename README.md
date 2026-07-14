@@ -1,4 +1,4 @@
-# **`School Management System (Capstone Project - CS50w)`**
+# School Management System (Capstone Project - CS50w)
 A mobile-responsive web system that helps school management staff to keep track of students grades and passed exams.
 
 ## Technologies used
