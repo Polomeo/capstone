@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 function ExamGradingHeader({ examId }){
 
     const [examData, setExamData] = useState({});
-    const [isEditingExam, setIsEditingExam] = useState(false);
+    const [isDeletingExam, setIsDeletingExam] = useState(false);
     const [errors, setErrors] = useState([]);
 
     // Fetch the data
@@ -27,29 +27,64 @@ function ExamGradingHeader({ examId }){
         .catch(error => console.error('Error: ', error));
     }, [])
 
-    // Edit exam
+    // Delete button
+    function deleteExamButton(event){
+        event.preventDefault();
+        setIsDeletingExam(true);
+    }
+
+    // Delete exam
     function handleDeleteExam(event){
         event.preventDefault();
         console.log("Delete exam pressed.")
     }
-    // Delete exam
 
-    // Cancel edit
+    // Cancel delete
     function handleCancelButton(event){
         event.preventDefault();
-        console.log("Delete canceled.")
+        setIsDeletingExam(false);
+        // console.log("Delete canceled.");
+        
     }
 
     return(
         <div className="exam-header">
-            <div className="exam-data">
-                <h1>{examData.subject_full}</h1>
-                <h6>Course: {examData.subject_course}° Year</h6>
-                <h6>{examData.date}</h6>
+            <div className="exam-data container">
+                <div className="row">
+                    <div className="col-md-4">
+                        <h1>{examData.subject_full}</h1>
+                        <h6>Course: {examData.subject_course}° Year</h6>
+                        <h6>{examData.date}</h6>
+                    </div>
+                    <div className="col-md-2">
+                        {(!isDeletingExam) && <button onClick={(e) => deleteExamButton(e)} className="btn btn-warning">Delete exam</button>}
+                    </div>
+                </div>
             </div>
-            <div className="exam-delete">
-                <h6>Are you sure you want to delete this exam? All gradings in this exam would be deleted.</h6>
+            {(isDeletingExam) &&
+            <div className="exam-delete border border-warning rounded">
+                <div className="row" style={{padding: "10px"}}>
+                    <div className="col-md-6">
+                        <h6>Are you sure you want to delete this exam and all it's gradings?</h6>
+                        <div className="btn-group col-md-2">
+                            <button 
+                                className="btn btn-warning"
+                                onClick={(e) => handleDeleteExam(e)}
+                                >
+                                Confirm
+                            </button>
+                            <button 
+                                className="btn btn-danger" 
+                                style={{marginLeft: "10px"}}
+                                onClick={(e) => handleCancelButton(e)}
+                                >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            }
         </div>
     )
 }
