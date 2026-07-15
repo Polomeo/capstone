@@ -1,28 +1,26 @@
 import { cache, useContext, useState } from "react"
-import { IsAddingStudentContext } from "../pages/StudentsPage"
 import ErrorsList from "./ErrorsList";
 
-function AddStudentForm() {
+function EditStudentForm({ studentPersonalData }) {
     
-    const [isAddingStudent, setIsAddingStudent] = useContext(IsAddingStudentContext);
     const [errors, setErrors] = useState([]);
     
     function handleCancelButton(event) {
         event.preventDefault();
-        setIsAddingStudent(!isAddingStudent);
     }
     
-    function handleEnroll(event) {
+    function handleEdit(event) {
         event.preventDefault();
         
         // Get the Form Data
         const formData = new FormData(event.currentTarget);
 
         // Call the API and send the student
-        fetch(`http://localhost:8000/api/add_student`, {
+        fetch(`http://localhost:8000/api/edit_student`, {
             method: 'POST',
             credentials : 'include',
             body: JSON.stringify({
+                studentId : studentPersonalData.id,
                 lastName : formData.get("last_name"),
                 firstName : formData.get("first_name"),
                 personalIdNumber : formData.get("personal_id_number"),
@@ -47,17 +45,11 @@ function AddStudentForm() {
                 for (const errorCode in response.errors) {
                     errorsResponse.push(response.errors[errorCode]);
                 }
-
-                // Clean and add the recent errors
-                // setErrors([]);
                 setErrors(errorsResponse);
                 console.log("Errors: " + errors);
             }
             else if (response.success){
-                console.log("Student added.");
-                
-                // Hide the form and reload List
-                setIsAddingStudent(false);
+                console.log("Student edit saved.");
             }
         })
         .catch(error => console.error('Error: ', error))
@@ -66,7 +58,7 @@ function AddStudentForm() {
   
     return (
         <form 
-            onSubmit={(e) => handleEnroll(e)} 
+            onSubmit={(e) => handleEdit(e)} 
             className="border border-info rounded" 
             style={{padding: "10px", margin: "10px 0"}}
         >
@@ -118,4 +110,4 @@ function AddStudentForm() {
     )
 }
 
-export default AddStudentForm
+export default EditStudentForm

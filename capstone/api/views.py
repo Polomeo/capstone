@@ -123,9 +123,10 @@ def students(request):
         "students" : student_with_grades
         })
 
-@csrf_exempt
-@api_login_required
-def add_student(request):
+def student_data_validator_errors(data_dict : dict) -> dict:
+    # Validates de data and returns an errors dictionary
+    # If the lenght of the returned dictionary is 0, there were no errors
+    errors = {}
 
     # Constants for validation
     current_year = datetime.today().year
@@ -137,21 +138,13 @@ def add_student(request):
     MIN_ENROLL_YEAR : int = current_year - 5
     MAX_ENROLL_YEAR : int = current_year + 1
 
-    if request.method != 'POST':
-        return JsonResponse({"error" : "POST request required."})
-    
-    # Create Student and save
-    data = json.loads(request.body)
-
     # Student data
-    last_name = data.get("lastName")
-    first_name = data.get("firstName")
-    personal_id_number = data.get("personalIdNumber")
-    enroll_year = data.get("enrollYear")
-    enroll_id = data.get("enrollId")
+    last_name = data_dict.get("lastName")
+    first_name = data_dict.get("firstName")
+    personal_id_number = data_dict.get("personalIdNumber")
+    enroll_year = data_dict.get("enrollYear")
+    enroll_id = data_dict.get("enrollId")
     
-    # Posible errors
-    errors = {}
 
 #region STUDENT DATA VALIDATION
     # VALIDATION -> Last Name
@@ -187,11 +180,33 @@ def add_student(request):
 
 #endregion
 
+    return errors
+
+@csrf_exempt
+@api_login_required
+def add_student(request):
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+
+    # Create Student and save
+    data = json.loads(request.body)
+
+    # Posible errors
+    errors : dict = student_data_validator_errors(data)
+
     # Check if errors, else create student and return success
     if len(errors) > 0:
         return JsonResponse({"errors" : errors}, status = 406) # Not Acceptable
 
     else:
+        # Student validated data
+        last_name = data.get("lastName")
+        first_name = data.get("firstName")
+        personal_id_number = data.get("personalIdNumber")
+        enroll_year = data.get("enrollYear")
+        enroll_id = data.get("enrollId")
+
+        # Create student
         new_student = Student(
             first_name = first_name,
             last_name = last_name,

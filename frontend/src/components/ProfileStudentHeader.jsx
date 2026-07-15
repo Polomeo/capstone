@@ -7,8 +7,13 @@ function ProfileStudentHeader({ studentPersonalData }){
     return (
         <div className="container">
             <div className="row">
-                <div className="col">
+                <div className="col-md-8">
                     <h3>{personalData.last_name}, {personalData.first_name}</h3>
+                </div>
+                <div className="col-md-2">
+                    <button className="btn btn-warning">
+                        Edit student
+                    </button>
                 </div>
             </div>
             <div className="row">
@@ -23,7 +28,6 @@ function ProfileStudentHeader({ studentPersonalData }){
                 </div>
             </div>
         </div>
-        // <>Test</>
     )
 }
 
