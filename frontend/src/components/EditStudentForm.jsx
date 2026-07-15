@@ -3,7 +3,7 @@ import ErrorsList from "./ErrorsList";
 
 import { IsEditingStudentContext, StudentPersonalDataContext } from "../pages/ProfilePage";
 
-function EditStudentForm({ studentPersonalData }) {
+function EditStudentForm() {
     
     const [personalData, setPersonalData] = useContext(StudentPersonalDataContext);
     const [isEditing, setIsEditing] = useContext(IsEditingStudentContext);
@@ -25,7 +25,7 @@ function EditStudentForm({ studentPersonalData }) {
             method: 'POST',
             credentials : 'include',
             body: JSON.stringify({
-                studentId : studentPersonalData.id,
+                studentId : personalData.id,
                 lastName : formData.get("last_name"),
                 firstName : formData.get("first_name"),
                 personalIdNumber : formData.get("personal_id_number"),

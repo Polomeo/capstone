@@ -29,7 +29,7 @@ function ProfilePage(){
             setStudentPersonalInfo(data.student_personal_info);
             setStudentAcademicHistory(data.student_academic_history);
         })
-    }, [isEditingStudent])
+    }, [isEditingStudent]) // Called when the editing student state change
     
     return (
         <div className="container">
