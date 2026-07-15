@@ -3,6 +3,7 @@ import ErrorsList from "./ErrorsList";
 
 function EditStudentForm({ studentPersonalData }) {
     
+    const [personalData, setPersonalData] = useState(studentPersonalData);
     const [errors, setErrors] = useState([]);
     
     function handleCancelButton(event) {
@@ -65,23 +66,43 @@ function EditStudentForm({ studentPersonalData }) {
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>
-                    <input name="last_name" type="text" className="form-control" placeholder="Last name" autoFocus/>
+                    <input 
+                        name="last_name" 
+                        type="text" 
+                        className="form-control" 
+                        defaultValue={personalData.last_name} autoFocus/>
                 </div>
                 <div className="form-group col-md-3">
                     <label>First name</label>
-                    <input name="first_name" type="text" className="form-control" placeholder="First name" />
+                    <input 
+                        name="first_name" 
+                        type="text" 
+                        className="form-control" 
+                        defaultValue={personalData.first_name} />
                 </div>
                 <div className="form-group col-md-2">
                     <label>Personal ID Number</label>
-                    <input name="personal_id_number" type="number" className="form-control" placeholder="11222333" />
+                    <input 
+                        name="personal_id_number" 
+                        type="number" 
+                        className="form-control" 
+                        defaultValue={personalData.personal_id} />
                 </div>
                 <div className="form-group col-md-2">
                     <label>Enroll Year</label>
-                    <input name="enroll_year" type="number" className="form-control" placeholder="2026" />
+                    <input 
+                        name="enroll_year" 
+                        type="number" 
+                        className="form-control" 
+                        defaultValue={personalData.enroll_year} />
                 </div>
                 <div className="form-group col-md-2">
                     <label>Enroll ID Number</label>
-                    <input name="enroll_id" type="number" className="form-control" placeholder="123" />
+                    <input 
+                        name="enroll_id" 
+                        type="number" 
+                        className="form-control" 
+                        defaultValue={personalData.enroll_id} />
                 </div>
             </div>
                 <div className="row">
@@ -90,12 +111,12 @@ function EditStudentForm({ studentPersonalData }) {
                     </div>
                 </div>
             <div className="row" style={{padding: "10px"}}>
-                <div className="btn-group col-md-2">
+                <div className="btn-group col-md-3">
                     <button 
                         type="submit" 
                         className="btn btn-primary"
                         >
-                        Enroll
+                        Save changes
                     </button>
                     <button 
                         className="btn btn-danger" 
