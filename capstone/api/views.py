@@ -250,7 +250,6 @@ def edit_student(request):
 
         return JsonResponse({"success" : "Student changes saved succesfully"}, status=201) # Created
 
-
 #endregion
 
 #region EXAMS VIEWS
