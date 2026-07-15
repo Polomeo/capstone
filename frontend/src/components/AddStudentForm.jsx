@@ -21,7 +21,7 @@ function AddStudentForm() {
         // Call the API and send the student
         fetch(`http://localhost:8000/api/add_student`, {
             method: 'POST',
-            credentiasl : 'include',
+            credentials : 'include',
             body: JSON.stringify({
                 lastName : formData.get("last_name"),
                 firstName : formData.get("first_name"),

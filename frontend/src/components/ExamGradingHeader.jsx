@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function ExamGradingHeader({ examId }){
 
     const [examData, setExamData] = useState({});
     const [isDeletingExam, setIsDeletingExam] = useState(false);
     const [errors, setErrors] = useState([]);
+
+    const navigate = useNavigate();
 
     // Fetch the data
     useEffect(() => {
@@ -36,7 +38,40 @@ function ExamGradingHeader({ examId }){
     // Delete exam
     function handleDeleteExam(event){
         event.preventDefault();
-        console.log("Delete exam pressed.")
+        console.log("Delete exam pressed.");
+
+        fetch(`http://localhost:8000/api/delete_exam`, {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify({
+                examToDeleteId : examId,
+            }),
+            cache: 'reload',
+        })
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json();
+        })
+        .then(response => {
+            if(response.errors){
+                // Add them to the error state
+                let errorsResponse = [];
+
+                for (const errorCode in response.errors) {
+                    errorsResponse.push(response.errors[errorCode]);
+                }
+
+                setErrors(errorsResponse);
+            }
+            else if(response.success){
+                console.log('Exam deleted.');
+                // Redirect to exams page
+                navigate('/exams', { replace : true });
+            }
+        })
     }
 
     // Cancel delete

@@ -299,6 +299,25 @@ def add_exam(request):
 
         return JsonResponse({"success" : "Exam created succesfully"}, status=201) # Created
 
+@csrf_exempt
+@api_login_required
+def delete_exam(request):
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+    
+    # Get the exam ID from POST
+    data = json.loads(request.body)
+    exam_id = int(data.get('examToDeleteId'))
+
+    # If exam is found, delete it
+    if Exam.objects.filter(id=exam_id).exists():
+        Exam.objects.filter(id=exam_id).delete()
+        return JsonResponse({'success' : 'Exam deleted succesfully.'})
+    else:
+        return JsonResponse({'errors' : 'Exam not found.'})
+
+
+
 #endregion
 
 #region GRADING VIEWS
