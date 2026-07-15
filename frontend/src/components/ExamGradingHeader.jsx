@@ -87,7 +87,7 @@ function ExamGradingHeader({ examId }){
             <div className="exam-data container">
                 <div className="row">
                     <div className="col-md-4">
-                        <h1>{examData.subject_full}</h1>
+                        <h2>{examData.subject_full}</h2>
                         <h6>Course: {examData.subject_course}° Year</h6>
                         <h6>{examData.date}</h6>
                     </div>

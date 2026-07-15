@@ -1,13 +1,17 @@
 import { cache, useContext, useState } from "react"
 import ErrorsList from "./ErrorsList";
 
+import { IsEditingStudentContext, StudentPersonalDataContext } from "../pages/ProfilePage";
+
 function EditStudentForm({ studentPersonalData }) {
     
-    const [personalData, setPersonalData] = useState(studentPersonalData);
+    const [personalData, setPersonalData] = useContext(StudentPersonalDataContext);
+    const [isEditing, setIsEditing] = useContext(IsEditingStudentContext);
     const [errors, setErrors] = useState([]);
     
     function handleCancelButton(event) {
         event.preventDefault();
+        setIsEditing(false);
     }
     
     function handleEdit(event) {
@@ -51,6 +55,7 @@ function EditStudentForm({ studentPersonalData }) {
             }
             else if (response.success){
                 console.log("Student edit saved.");
+                setIsEditing(false);
             }
         })
         .catch(error => console.error('Error: ', error))
@@ -63,6 +68,9 @@ function EditStudentForm({ studentPersonalData }) {
             className="border border-info rounded" 
             style={{padding: "10px", margin: "10px 0"}}
         >
+            <div className="row">
+                <span style={{fontStyle: "italic", fontSize: "1.5em", color: "blue"}}>Edit student</span>
+            </div>
             <div className="row">
                 <div className="form-group col-md-3">
                     <label>Last name</label>

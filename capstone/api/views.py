@@ -146,7 +146,7 @@ def student_data_validator_errors(data_dict : dict) -> dict:
     enroll_id = data_dict.get("enrollId")
     
 
-#region STUDENT DATA VALIDATION
+
     # VALIDATION -> Last Name
     if len(last_name) < MIN_CHAR or len(last_name) > MAX_CHAR:
         errors["errLastName"] = f"Last name must be betweeen {MIN_CHAR} and {MAX_CHAR} characters."
@@ -177,8 +177,6 @@ def student_data_validator_errors(data_dict : dict) -> dict:
     except ValueError:
         errors["errInvalidNumber"] = f'Personal ID number, Enroll Year and Enroll ID must be integer numbers.'
 
-
-#endregion
 
     return errors
 
@@ -238,7 +236,7 @@ def edit_student(request):
     else:
         # Save student changes
         # Student data
-        student_id = data.get("studentId")
+        student_id = int(data.get("studentId"))
         new_last_name = data.get("lastName")
         new_first_name = data.get("firstName")
         new_personal_id_number = data.get("personalIdNumber")
@@ -246,8 +244,14 @@ def edit_student(request):
         new_enroll_id = data.get("enrollId")
 
         # Apply updates to student
-        # [TO DO]
-
+        Student.objects.filter(id=student_id).update(
+            first_name = new_first_name,
+            last_name = new_last_name,
+            personal_id_number = new_personal_id_number,
+            enroll_year = new_enroll_year,
+            enroll_id = new_enroll_id,
+        )
+        
         return JsonResponse({"success" : "Student changes saved succesfully"}, status=201) # Created
 
 #endregion
