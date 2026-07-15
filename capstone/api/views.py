@@ -219,6 +219,38 @@ def add_student(request):
 
         return JsonResponse({"success" : "Student created succesfully"}, status=201) # Created
 
+@csrf_exempt
+@api_login_required
+def edit_student(request):
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+
+    # Create Student and save
+    data = json.loads(request.body)
+
+    # Posible errors
+    errors : dict = student_data_validator_errors(data)
+
+    # Check if errors, else create student and return success
+    if len(errors) > 0:
+        return JsonResponse({"errors" : errors}, status = 406) # Not Acceptable
+
+    else:
+        # Save student changes
+        # Student data
+        student_id = data.get("studentId")
+        new_last_name = data.get("lastName")
+        new_first_name = data.get("firstName")
+        new_personal_id_number = data.get("personalIdNumber")
+        new_enroll_year = data.get("enrollYear")
+        new_enroll_id = data.get("enrollId")
+
+        # Apply updates to student
+        # [TO DO]
+
+        return JsonResponse({"success" : "Student changes saved succesfully"}, status=201) # Created
+
+
 #endregion
 
 #region EXAMS VIEWS

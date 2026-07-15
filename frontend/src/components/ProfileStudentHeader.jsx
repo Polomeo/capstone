@@ -5,7 +5,7 @@ function ProfileStudentHeader({ studentPersonalData }){
     const [personalData, setPersonalData] = useState(studentPersonalData);
 
     return (
-        <div className="container">
+        <div className="container student-profile-header">
             <div className="row">
                 <div className="col-md-8">
                     <h3>{personalData.last_name}, {personalData.first_name}</h3>
