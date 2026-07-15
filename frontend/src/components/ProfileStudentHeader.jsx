@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import EditStudentForm from "./EditStudentForm";
+import ButtonStateToggle from "./ButtonStateToggle";
 
 function ProfileStudentHeader({ studentPersonalData }){
 
@@ -22,11 +23,16 @@ function ProfileStudentHeader({ studentPersonalData }){
                             <h3>{personalData.last_name}, {personalData.first_name}</h3>
                         </div>
                         <div className="col-md-2">
-                            <button 
+                            {/* <button 
                                 className="btn btn-warning"
                                 onClick={(e) => editStudentButton(e)}>
                                 Edit student
-                            </button>
+                            </button> */}
+                            <ButtonStateToggle 
+                                stateStatus={isEditingStudent} 
+                                setStateStatus={setIsEditingStudent}
+                                label="Edit student"
+                                buttonColorType={"warning"}/>
                         </div>
                     </div>
                 <div className="row">
