@@ -11,6 +11,7 @@ urlpatterns = [
     path('students', views.students, name="students"),
     path('add_student', views.add_student, name="add_student"),
     path('edit_student', views.edit_student, name="edit_student"),
+    path('delete_student', views.delete_student, name="delete_student"),
     # Exams
     path('exams', views.exams, name="exams"),
     path('create_exam_form_info', views.create_exam_form_info, name="create_exam_form_info"),

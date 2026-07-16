@@ -65,7 +65,7 @@ function EditStudentForm() {
     return (
         <form 
             onSubmit={(e) => handleEdit(e)} 
-            className="border border-info rounded" 
+            className="border border-info rounded col-md-10" 
             style={{padding: "10px", margin: "10px 0"}}
         >
             <div className="row">

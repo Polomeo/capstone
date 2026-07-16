@@ -254,6 +254,12 @@ def edit_student(request):
         
         return JsonResponse({"success" : "Student changes saved succesfully"}, status=201) # Created
 
+@csrf_exempt
+@api_login_required
+def delete_student(request):
+    # Check if Personal ID number is correct
+    # Delete the student
+    return JsonResponse({"errors" : "Student to delete requested."})
 #endregion
 
 #region EXAMS VIEWS
