@@ -54,7 +54,7 @@ function DeleteStudentForm(){
                 console.log("Student deleted.");
                 setIsDeleting(false);
                 // Navigate to students list
-                navigate('/', replace);
+                navigate('/', {"replace" : true});
             }
         })
         .catch(error => console.error('Error: ', error))
@@ -78,6 +78,7 @@ function DeleteStudentForm(){
                         name="student_personal_id" 
                         type="number" 
                         className="form-control" 
+                        required
                         autoFocus/>
                 </div>
                 </div>

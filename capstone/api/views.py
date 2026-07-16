@@ -257,9 +257,23 @@ def edit_student(request):
 @csrf_exempt
 @api_login_required
 def delete_student(request):
+    if request.method != 'POST':
+        return JsonResponse({"error" : "POST request required."})
+    
+    data = json.loads(request.body)
+    student_id = int(data.get("studentId"))
+    student_personal_id = int(data.get("studentPersonalId"))
+    
     # Check if Personal ID number is correct
-    # Delete the student
-    return JsonResponse({"errors" : "Student to delete requested."})
+    student_to_delete = Student.objects.filter(id=student_id, personal_id_number=student_personal_id)
+
+    if len(student_to_delete) == 0:
+        return JsonResponse({"errors" : "The ID number entered is not correct."}) 
+    else:
+        # Delete the student
+        student_to_delete.delete()
+        return JsonResponse({"success" : "Student to delete requested."})
+
 #endregion
 
 #region EXAMS VIEWS
