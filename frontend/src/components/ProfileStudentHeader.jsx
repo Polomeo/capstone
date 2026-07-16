@@ -1,13 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import EditStudentForm from "./EditStudentForm";
 import ButtonStateToggle from "./ButtonStateToggle";
-import { IsEditingStudentContext, StudentPersonalDataContext } from "../pages/ProfilePage";
+import { IsDeletingStudentContext, IsEditingStudentContext, StudentPersonalDataContext } from "../pages/ProfilePage";
+import DeleteStudentForm from "./DeleteStudentForm";
 
 
 function ProfileStudentHeader(){
 
     const [personalData, setPersonalData] = useContext(StudentPersonalDataContext);
     const [isEditingStudent, setIsEditingStudent] = useContext(IsEditingStudentContext);
+    const [isDeletingStudent, setIsDeletingStudent] = useContext(IsDeletingStudentContext);
 
     function editStudentButton(event){
         event.preventDefault();
@@ -21,14 +23,22 @@ function ProfileStudentHeader(){
                         <div className="col-md-8">
                             <h3>{personalData.last_name}, {personalData.first_name}</h3>
                         </div>
-                        <div className="col-md-2">
-                            {(!isEditingStudent) && 
-                            <ButtonStateToggle 
-                                stateStatus={isEditingStudent} 
-                                setStateStatus={setIsEditingStudent}
-                                label="Edit student"
-                                buttonColorType={"warning"}
-                                />}
+                        <div className="col-md-4">
+                            {(!isEditingStudent && !isDeletingStudent) && 
+                            <div className="btn-group col-md-4">
+                                <ButtonStateToggle 
+                                    stateStatus={isEditingStudent} 
+                                    setStateStatus={setIsEditingStudent}
+                                    label="Edit student"
+                                    buttonColorType={"warning"}
+                                    />
+                                <ButtonStateToggle
+                                    stateStatus={isDeletingStudent}
+                                    setStateStatus={setIsDeletingStudent}
+                                    label="Delete student"
+                                    buttonColorType={"danger"}
+                                />
+                            </div>}
                         </div>
                     </div>
                 <div className="row">
@@ -44,7 +54,8 @@ function ProfileStudentHeader(){
                 </div>
             </div>
             <div className="container student-profile-edit">
-                {(isEditingStudent) && <EditStudentForm studentPersonalData={personalData} />}
+                {(isEditingStudent) && <EditStudentForm />}
+                {(isDeletingStudent) && <DeleteStudentForm />}
             </div>
         </div>        
     )

@@ -5,13 +5,15 @@ import ProfileStudentHeader from "../components/ProfileStudentHeader";
 
 export const StudentPersonalDataContext = createContext();
 export const IsEditingStudentContext= createContext();
+export const IsDeletingStudentContext = createContext();
 
 function ProfilePage(){
     
     const { id } = useParams();
     const [studentPersonalInfo, setStudentPersonalInfo] = useState(null);
-    const [isEditingStudent, setIsEditingStudent] = useState(false);
     const [studentAcademicHistory, setStudentAcademicHistory] = useState([]);
+    const [isEditingStudent, setIsEditingStudent] = useState(false);
+    const [isDeletingStudent, setIsDeletingStudent] =useState(false);
 
     useEffect(() =>{
         fetch(`http://localhost:8000/api/profile_info/${id}`, {
@@ -35,14 +37,16 @@ function ProfilePage(){
         <div className="container">
             <StudentPersonalDataContext.Provider value={[studentPersonalInfo, setStudentPersonalInfo]}>
                 <IsEditingStudentContext.Provider value={[isEditingStudent, setIsEditingStudent]}>
-                    <div>
-                        {(studentPersonalInfo) && <ProfileStudentHeader />}
-                    </div>
-                    <div>
-                        {(studentAcademicHistory.length) > 0 
-                            ? <ProfileAcademicHistoryList studentAcademicHistory={studentAcademicHistory} />
-                        : <div>No exams registered for this student yet.</div>}
-                    </div>
+                    <IsDeletingStudentContext.Provider value={[isDeletingStudent, setIsDeletingStudent]}>
+                        <div>
+                            {(studentPersonalInfo) && <ProfileStudentHeader />}
+                        </div>
+                        <div>
+                            {(studentAcademicHistory.length) > 0 
+                                ? <ProfileAcademicHistoryList studentAcademicHistory={studentAcademicHistory} />
+                            : <div>No exams registered for this student yet.</div>}
+                        </div>
+                    </IsDeletingStudentContext.Provider>
                 </IsEditingStudentContext.Provider>
             </StudentPersonalDataContext.Provider>
         </div>
