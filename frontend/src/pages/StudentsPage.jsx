@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 
 // Components
 import StudentsTable from "../components/StudentsTable";
-// import AddStudentButton from "../components/AddStudentButton";
 import ButtonStateToggle from "../components/ButtonStateToggle";
 import StudentsSearchBar from "../components/StudentsSearchBar";
 import AddStudentForm from "../components/AddStudentForm";
@@ -30,7 +29,6 @@ function StudentsPage(){
                         </div>
                         <IsAddingStudentContext.Provider value={[isAddingStudent, setIsAddingStudent]}>
                             <div className="col-md-2">
-                                {/* {(!isAddingStudent) && <AddStudentButton />} */}
                                 {(!isAddingStudent) && 
                                 <ButtonStateToggle 
                                     stateStatus={isAddingStudent}
