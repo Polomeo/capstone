@@ -13,7 +13,7 @@ function LoginPage({ setIsAuthenticated }){
 
         const formData = new FormData(event.currentTarget);
 
-        // Attemt to log in
+        // Attempt to log in
         fetch('http://localhost:8000/api/login', {
             method: 'POST',
             body: JSON.stringify({
