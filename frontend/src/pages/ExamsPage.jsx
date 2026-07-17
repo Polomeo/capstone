@@ -9,6 +9,7 @@ import AddExamButton from "../components/AddExamButton";
 import ExamsContextProvider from "../contexts/ExamsContextProvider";
 import SearchExamContextProvider from "../contexts/SearchExamContextProvider";
 import AddExamForm from "../components/AddExamForm";
+import ButtonStateToggle from "../components/ButtonStateToggle";
 
 export const IsAddingExamContext = createContext();
 
@@ -26,7 +27,13 @@ function ExamsPage(){
                         </div>
                         <IsAddingExamContext.Provider value={[isAddingExam, setIsAddingExam]}>
                             <div className="col-md-2">
-                                {(!isAddingExam) && <AddExamButton />}
+                                {/* {(!isAddingExam) && <AddExamButton />} */}
+                                {(!isAddingExam) && 
+                                <ButtonStateToggle 
+                                    stateStatus={isAddingExam} 
+                                    setStateStatus={setIsAddingExam}
+                                    label={"+Add Exam"} 
+                                    buttonColorType={"warning"}/>}
                             </div>
                             <div className="col-md-12">
                                 {(isAddingExam) && <AddExamForm />}

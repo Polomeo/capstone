@@ -35,7 +35,7 @@ function StudentsPage(){
                                 <ButtonStateToggle 
                                     stateStatus={isAddingStudent}
                                     setStateStatus={setIsAddingStudent}
-                                    label={"+ Add student"}
+                                    label={"+ Add Student"}
                                     buttonColorType={"info"}/>}
                             </div>
                             <div className="col-md-12">
