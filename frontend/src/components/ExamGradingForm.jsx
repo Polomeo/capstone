@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 
 // Components
 import StudentGradingForm from "./StudentGradingForm";
-import ExamGradingAddStudentsButton from "./ExamGradingAddStudentsButton";
+import ButtonStateToggle from "./ButtonStateToggle";
 import ErrorsList from "./ErrorsList";
 
 // Contexts
-import { IsEditingGradingsContext } from "../pages/GradingPage";
+import { IsAddingStudentsContext, IsEditingGradingsContext } from "../pages/GradingPage";
 import { GradingExamContext } from "../contexts/GradingExamContextProvider";
 
 function ExamGradingForm({ examId }){
     
-    const [isEditingGradings, setIsEditingGradings] = useContext(IsEditingGradingsContext)
+    const [isEditingGradings, setIsEditingGradings] = useContext(IsEditingGradingsContext);
+    const [isAddingStudentsToExam, setIsAddingStudentsToExam] = useContext(IsAddingStudentsContext);
     const [gradingData, setGradingData] = useContext(GradingExamContext);
     const [errors, setErrors] = useState([]);
 
@@ -107,7 +108,11 @@ function ExamGradingForm({ examId }){
 
     return(
         <div>
-            <ExamGradingAddStudentsButton />
+            <ButtonStateToggle 
+                stateStatus={isAddingStudentsToExam}
+                setStateStatus={setIsAddingStudentsToExam}
+                label={"+ Add Students to Exam"}
+                buttonColorType={"info"}/>
             <form
                 onSubmit={(e) => handleSave(e)}
                 className="form-inline"
