@@ -3,12 +3,12 @@ import { createContext, useContext, useState } from "react";
 // Components
 import ExamsTable from "../components/ExamsTable";
 import ExamsSearchBar from "../components/ExamsSearchBar";
-import AddExamButton from "../components/AddExamButton";
+import AddExamForm from "../components/AddExamForm";
+import ButtonStateToggle from "../components/ButtonStateToggle";
 
 // Contexts
 import ExamsContextProvider from "../contexts/ExamsContextProvider";
 import SearchExamContextProvider from "../contexts/SearchExamContextProvider";
-import AddExamForm from "../components/AddExamForm";
 
 export const IsAddingExamContext = createContext();
 
@@ -26,7 +26,12 @@ function ExamsPage(){
                         </div>
                         <IsAddingExamContext.Provider value={[isAddingExam, setIsAddingExam]}>
                             <div className="col-md-2">
-                                {(!isAddingExam) && <AddExamButton />}
+                                {(!isAddingExam) && 
+                                <ButtonStateToggle 
+                                    stateStatus={isAddingExam} 
+                                    setStateStatus={setIsAddingExam}
+                                    label={"+ Add Exam"} 
+                                    buttonColorType={"warning"}/>}
                             </div>
                             <div className="col-md-12">
                                 {(isAddingExam) && <AddExamForm />}

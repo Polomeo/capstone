@@ -5,7 +5,7 @@ import { createContext, useState } from "react";
 import ExamGradingHeader from "../components/ExamGradingHeader";
 import ExamGradingList from "../components/ExamGradingList";
 import ExamGradingForm from "../components/ExamGradingForm"
-import EditGradingsButton from "../components/EditGradingsButton"
+import ButtonStateToggle from "../components/ButtonStateToggle";
 
 // Contexts
 import GradingExamContextProvider from "../contexts/GradingExamContextProvider"
@@ -28,7 +28,12 @@ function GradingPage(){
                 <ExamGradingHeader examId={ id } />
                 <IsEditingGradingsContext.Provider value={[isEditingGradings, setIsEditingGradings]}>
                     <div>
-                        {(!isEditingGradings) && <EditGradingsButton />}
+                        {(!isEditingGradings) && 
+                        <ButtonStateToggle 
+                            stateStatus={isEditingGradings}
+                            setStateStatus={setIsEditingGradings}
+                            label={"Edit Gradings"} 
+                            buttonColorType={"info"}/>}
                     </div>
                     <IsAddingStudentsContext value={[isAddingStudentsToExam, setIsAddingStudentsToExam]} >
                         <div>
