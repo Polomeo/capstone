@@ -1,6 +1,16 @@
 # School Management System (Capstone Project - CS50w)
 This project is a full-stack, mobile-responsive web application for managing students, subjects, exams, and grades in a school context. It combines a Django backend with a React frontend to provide a simple and organized administrative workflow.
 
+## Table of Contents
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [How to Run It](#how-to-run-it)
+- [Distinctiveness and Complexity](#distinctiveness-and-complexity)
+- [Project Structure and File Overview](#project-structure-and-file-overview)
+- [How to Use the Application](#how-to-use-the-application)
+- [Design Decisions](#design-decisions)
+- [Coding Decisions](#coding-decisions)
+
 ## Features
 - Manage student records
 - Create and list exams
