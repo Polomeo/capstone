@@ -315,8 +315,8 @@ def create_exam_form_info(request):
     else:
         return JsonResponse(exams_info)
 
-@csrf_exempt
 @api_login_required
+@csrf_exempt
 def add_exam(request):
     current_year = datetime.today().year
 

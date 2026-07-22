@@ -36,7 +36,7 @@ function StudentsTable() {
                     <thead>
                         <tr className="table-secondary">
                         <th scope="col">Enroll Year</th>
-                        <th scope="col">Full name</th>
+                        <th scope="col">Full Name</th>
                         <th scope="col">P. ID</th>
                         <th scope="col">1° Y</th>
                         <th scope="col">2° Y</th>

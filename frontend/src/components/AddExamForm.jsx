@@ -44,13 +44,20 @@ function AddExamForm() {
         // Call the API and send the student
         fetch(`http://localhost:8000/api/add_exam`, {
             method: 'POST',
+            credentials: 'include',
             body: JSON.stringify({
                 subjectId : formData.get("subject_select"),
                 examDate : formData.get("exam_date"),
             }),
             cache: 'reload',
         })
-        .then(res => res.json())
+        .then(res => {
+            if(res.status === 401) {
+                console.log('Status 401: NOT LOGGED IN')
+                return null // If this return is not present, the next fails
+            }
+            return res.json()
+        })
         .then(response => {
             if(response.errors){
                 
