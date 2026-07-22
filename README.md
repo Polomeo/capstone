@@ -1,6 +1,5 @@
-
 # School Management System (Capstone Project - CS50w)
-This project is a full-stack mobile-responsive web application for managing students, subjects, exams, and grades in a school context. It combines a Django backend with a React frontend to provide a simple and organized administrative workflow.
+This project is a full-stack, mobile-responsive web application for managing students, subjects, exams, and grades in a school context. It combines a Django backend with a React frontend to provide a simple and organized administrative workflow.
 
 ## Features
 - Manage student records
@@ -88,55 +87,111 @@ The following list describes the custom files created for this project. Base fra
 
 ## How to Use the Application
 ### Log in
-[LOGIN SCREENSHOT]
+<p align="center">
+  <img src="frontend/screenshots/1_login_page.png" alt="Login page" width="700">
+</p>
 
-When the user enters the front page of the application it will be requested to log in. The test user is:
+When the user enters the front page of the application, they will be prompted to log in. The test user is:
 - Username: **dumbledore**
 - Password: **lemonpie**
 
 This redirects the user to the *Students Page*.
 
 ### Navigation Bar
-[NAVBAR SCREENSHOT]
-The user can use this bar to navigate to the *Students Page*, the *Exams Page*; or *Logout* from the application.
+<p align="center">
+  <img src="frontend/screenshots/2_navigation_bar.png" alt="Navigation bar" width="700">
+</p>
+
+The user may use this bar to navigate to the *Students Page*, the *Exams Page*, or *Logout* from the application.
 
 ### Students Page
-[STUDENTS PAGE SCREENSHOT]
-This page list the students aphabeticly. For each student it shows the **Enroll Year**, the **Full Name**, the **Personal ID Number**, and the **Subjects Approved** in each of the three yearly courses of the carreer.
+<p align="center">
+  <img src="frontend/screenshots/3_students_page.png" alt="Students page" width="700">
+</p>
 
-In this page the user can:
-- Use the **Search student** bar to locate a student by typing it's first or last name.
+This page lists the students alphabetically. For each student, it shows the **Enroll Year**, the **Full Name**, the **Personal ID Number**, and the **Subjects Approved** in each of the three yearly courses of the career.
+
+In this page, the user may:
+- Use the **Search student** bar to locate a student by typing their first or last name.
 - Click on the **+ Add Student** button to register a new student.
 - Go to any current student's **profile page** by clicking on their name.
 
 ### Profile Page
-[PROFILE PAGE SCREENSHOT]
-This page shows the student's personal information, and it's academic history.
+<p align="center">
+  <img src="frontend/screenshots/4_profile_page.png" alt="Profile page" width="700">
+</p>
 
-In this page the user can:
-- Use the **Edit student** button to update the student personal information.
-- Use de **Delete student** button to delete the student (and all of it's gradings).
+This page shows the student's personal information and academic history.
+
+In this page, the user may:
+- Use the **Edit student** button to update the student's personal information.
+- Use the **Delete student** button to delete the student (and all of its gradings).
 - Click on any **Subject** to navigate to that particular exam.
 
 ### Exams Page
-[EXAMS PAGE SCREENSHOT]
-In this page are listed all the exams, ordered by date (from recent to past). For each exam is showed the **course**, the **subject**, the **date of the exam**, the **total students examined** in such exam, and a button to **see the exam**.
+<p align="center">
+  <img src="frontend/screenshots/5_exams_page.png" alt="Exams page" width="700">
+</p>
 
-The exams are **color graded** to help the user identify the **course** of the subject examined at first glance (*red* for 1° course, *yellow* for 2° course, and *green* for 3° course).
+On this page, all exams are listed, ordered by date (from recent to past). For each exam, the page shows the **course**, the **subject**, the **date of the exam**, the **total number of students examined** in that exam, and a button to **see the exam**.
 
-In this page the user can:
+The exams are **color graded** to help the user identify the **course** of the subject examined at a glance (*red* for 1st course, *yellow* for 2nd course, and *green* for 3rd course).
+
+In this page, the user may:
 - Use the **Search subject** bar to locate all the exams of a particular subject.
 - Use the **Add exam** button to register a new exam.
-- Click on any **exam** to navigate to such exam gradings.
+- Click on any **exam** to navigate to that exam's gradings.
 
 ### Grading Page
-[GRADING PAGE LIST SCREENSHOT]
+<p align="center">
+  <img src="frontend/screenshots/6_grading_page_list.png" alt="Grading page" width="700">
+</p>
 
+The Grading Page shows the gradings for each student in the exam. The gradings are **color graded** to identify at a glance the approved (*green*), disapproved (*red*), and absent (*blue*) students.
+
+In this page, the user may:
+- Use the **Delete exam** button to eliminate the exam (and its gradings).
+- Use the **Edit Gradings** button to navigate to the *Edit Gradings* page for this exam.
+- Click on any **student** to navigate to that student's profile page.
+
+### Edit Gradings Page
+<p align="center">
+  <img src="frontend/screenshots/7_edit_gradings_page.png" alt="Edit gradings page" width="700">
+</p>
+
+This page allows the user to edit the gradings of an exam and add or delete students from it.
+When a student is added, it is mandatory for the user to insert a grading or set it as absent before saving the changes to the exam.
+
+In this page, the user may:
+- Use the **+ Add Students to exam** button to add students to the current exam.
+- Update each student's **grade** on the exam, or set it as **absent**.
+- Delete students from the exam using the **Delete** button beside each student.
+- **Save** or **Cancel** the changes made to the exam.
+
+### Add Students to Exam Form
+<p align="center">
+  <img src="frontend/screenshots/8_add_students_to_exam.png" alt="Add students to exam form" width="700">
+</p>
+
+This form is accessed from the *Edit Gradings Page*. It shows the user a list of students that are available to add to the exam. All students are listed alphabetically, but those already in the exam are unavailable to select, as well as those students who have already approved the examined subject in a previous instance.
+
+In this form, the user may:
+- Mark one or more students to be added to the exam using a **checkbox**.
+- Add the selected students to the exam using the **Add students to exam** button, or use the **Cancel** button to return to the *Edit Gradings Page* without making changes.
 
 ## Design Decisions
 ### General
-- The users are created by the application admin and not freely, since the application holds sensible students' information.
+- The users are created by the application admin rather than by users themselves, since the application stores sensitive student information.
 - The subjects are added only by the application admin and not freely. This is designed to prevent the addition of subjects not contemplated in the curriculum by the user by mistake.
-- The application is designed to hold subjects for a carreer with a three year curriculum. This is based on the standard curricula of my current workplace, wich I used as a base to design the system.
+- The application is designed to hold subjects for a career with a three-year curriculum. This is based on the standard curricula of my current workplace, which I used as a basis for designing the system.
 ### Profile Page
-- When the user attemps to delete a student the application asks the user to input the student's personal ID number. This helps to prevent an accidental deletion of the wrong student.
+- When the user attempts to delete a student, the application asks the user to input the student's personal ID number. This helps to prevent an accidental deletion of the wrong student.
+### Student Grading Page
+- When the user adds a student to an exam, it is mandatory that such a student has a grading or is set as *absent* before saving the changes to the database. This prevents a student from being saved without information about their status in that exam, which is required for other parts of the application.
+### Add Students to Exam Form
+- This form only allows the user to select students who are not yet in the exam grading page and have not already approved the exam previously. This prevents a student from being registered as approved in two different instances for the same subject, since once a student approves a subject, no further examination is needed.
+
+## Coding Decisions
+- **Using React for the frontend**: In my last project ([Network](https://github.com/Polomeo/network)), I used plain JavaScript to add functionality to the page. In this instance, I wanted to fully separate the backend from the frontend, and I found some advantages in the React framework that made the task affordable (such as the *router*, which helps navigate a *Single-Page Application*, and the possibility of reusable components that help me show *error messages* in the forms and the *buttons* for this application). While learning this framework, I found very useful patterns built on top of *useState()* (as seen in the course), such as *useContext()* and *useParams()*.
+- **Using Bootstrap for styles**: I was already somewhat familiar with Bootstrap. I find it very helpful for designing interfaces quickly, and its text-based classes allowed me to modify them as needed using React in the components. It also made the project easy to adapt to be mobile-responsive. I added a separate stylesheet for simple tweaks.
+- **Validate forms in the backend**: Each form is validated in the backend, and it returns success and error messages depending on the result of the validation. This could be more resource-intensive for the server, but it ensures that the data is double-checked before altering the database.
