@@ -19,9 +19,9 @@ This project is a full-stack, mobile-responsive web application for managing stu
 - Authenticate users with a login system
 
 ## Technologies Used
-- Django *(backend for API routes and database)*
-- React *(frontend)*
-- Bootstrap *(CSS styles)*
+- [Django](https://www.djangoproject.com/) *(backend for API routes and database)*
+- [React](https://es.react.dev/) *(frontend)*
+- [Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) *(CSS styles)*
 
 ## How to Run It
 - The computer must have [Node.js](https://nodejs.org/es/download) installed.
