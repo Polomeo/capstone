@@ -196,7 +196,8 @@ The following list describes the custom files created for this project. Base fra
 - The application is designed to hold subjects for a career with a three-year curriculum. This is based on the standard curricula of my current workplace, which I used as a basis for designing the system.
 ### Profile Page
 - When the user attempts to delete a student, the application asks the user to input the student's personal ID number. This helps to prevent an accidental deletion of the wrong student.
-### Student Grading Page
+### Add Student Form
+- The student's enrollment year can only be between the next year and five years prior to the present year. The maximum lenght of time that a student is considered *regular* in my target institution is six years from their enrollment, and this constraint aims to prevent some common (in my experience) typing mistakes regarding dates, such as inserting `20026` or `2206` instead of `2026`. It allows to enroll students for the comming year.
 - When the user adds a student to an exam, it is mandatory that such a student has a grading or is set as *absent* before saving the changes to the database. This prevents a student from being saved without information about their status in that exam, which is required for other parts of the application.
 ### Add Students to Exam Form
 - This form only allows the user to select students who are not yet in the exam grading page and have not already approved the exam previously. This prevents a student from being registered as approved in two different instances for the same subject, since once a student approves a subject, no further examination is needed.
